@@ -16,6 +16,8 @@ class Library
 
     public void printBookDetails()
     {
+        System.out.println("The list of books You can choose from are:");
+
         System.out.println("|--------------------------------------------------------------------------|");
         System.out.println("\t\t\t\t\t\t\t");
         System.out.printf("%-30s%-30s%-30s\n","Book Name","Book Author","Publishing Year");
@@ -23,7 +25,7 @@ class Library
         System.out.println("|---------------------------------------------------------------------------");
         for(int i=0;i<bookList.size();i++)
         {
-            System.out.printf("|%-30s|%-30s|%-12s|\n",bookList.get(i).bookName,bookList.get(i).authorName,bookList.get(i).yearOfPublishing);
+            System.out.printf("|%-30s|%-30s|%-12s|\n", bookList.get(i).bookName, bookList.get(i).authorName, bookList.get(i).yearOfPublishing);
         }
     }
 
