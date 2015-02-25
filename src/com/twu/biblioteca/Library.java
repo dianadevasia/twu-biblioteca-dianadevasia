@@ -7,26 +7,35 @@ import java.util.ArrayList;
  */
 class Library
 {
-    ArrayList<Book> bookList;
+    private ArrayList<Book> bookList;
+
+    public ArrayList<Book> getBookList() {
+        return bookList;
+    }
+
 
     public Library(ArrayList<Book> bookList)
     {
         this.bookList = bookList;
     }
 
-    public void printBookDetails()
+    public void validateBookId(int optionChosen)
     {
-        System.out.println("The list of books You can choose from are:");
-
-        System.out.println("|--------------------------------------------------------------------------|");
-        System.out.println("\t\t\t\t\t\t\t");
-        System.out.printf("%-30s%-30s%-30s\n","Book Name","Book Author","Publishing Year");
-
-        System.out.println("|---------------------------------------------------------------------------");
-        for(int i=0;i<bookList.size();i++)
-        {
-            System.out.printf("|%-30s|%-30s|%-12s|\n", bookList.get(i).bookName, bookList.get(i).authorName, bookList.get(i).yearOfPublishing);
-        }
+        int bookLimitCrossed = bookList.size() + 1;
+        if(optionChosen<1 || optionChosen >= bookLimitCrossed)
+            throw new BookNotValidException();
     }
 
+    public Book removeBookFromList(int optionChosen)
+    {
+        validateBookId(optionChosen);
+        Book removedBook = bookList.get(optionChosen-1);
+        bookList.remove(optionChosen-1);
+        return removedBook;
+
+    }
+
+    public void addBookToRepository(Book returnedBook) {
+        bookList.add(returnedBook);
+    }
 }
