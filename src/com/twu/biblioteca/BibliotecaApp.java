@@ -121,9 +121,16 @@ public class BibliotecaApp {
 
     public void checkoutBook(Library library, Customer customer) throws IOException
     {
+        String bookId;
         ioDevice.writeOutput("Enter the book id you want to checkout from the following list of books.");
-        printBookDetails(library);
-        int optionChosen = Integer.parseInt(ioDevice.readInput());
+        do {
+            printBookDetails(library);
+            bookId = ioDevice.readInput();
+            if(!bookId.matches("[0-9]"))
+                ioDevice.writeOutput("Please enter a numeric book id value");
+        }while(!bookId.matches("[0-9]"));
+
+        int optionChosen = Integer.parseInt(bookId);
         try
         {
             Book removedBook = library.removeBookFromList(optionChosen);

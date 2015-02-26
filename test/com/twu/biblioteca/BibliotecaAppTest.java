@@ -77,22 +77,6 @@ public class BibliotecaAppTest {
         assertThat(ioDeviceForReturn.getActualWrittenOutput(), is(expected));
     }
 
-//    @Test
-//    public void testValidatePerformActionShowsBookListOnInputValueOne() throws IOException {
-//
-//        MockInputOutputDevice ioDevice = new MockInputOutputDevice();
-//        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-//        Customer customer = new Customer("diana");
-//        ArrayList<Book> booklist = getBookList();
-//        Library library = new Library(booklist);
-//        int optionChosen=1;
-//
-//        String expected="You choose option 1";
-//        bibliotecaApp.performActions(optionChosen,library,customer);
-//
-//        assertThat(ioDevice.getActualWrittenOutput(), is(expected));
-//    }
-
     @Test
     public void testValidatePerformActionRerunsOnInvalidInputValue() throws IOException
     {
