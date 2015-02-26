@@ -1,12 +1,26 @@
 package com.twu.biblioteca;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
+
+interface InputOutputDevice{
+    String readInput() throws IOException;
+    void writeOutput(String msg);
+}
+
 public class BibliotecaApp {
+
+    private InputOutputDevice ioDevice;
+
+    public BibliotecaApp(InputOutputDevice ioDevice)
+    {
+        this.ioDevice = ioDevice;
+    }
+
+    public void setIoDevice(InputOutputDevice ioDevice) {
+        this.ioDevice = ioDevice;
+    }
 
     public static ArrayList<Book> getBookList() {
         ArrayList<Book> bookList = new ArrayList<Book>();
@@ -21,127 +35,106 @@ public class BibliotecaApp {
     public static void main(String[] args) throws IOException
     {
         ArrayList<Book> bookList = getBookList();
-        Customer customer = new Customer("customer1");
+        Customer customer = new Customer("diana");
         Library library = new Library(bookList);
-        BibliotecaApp app=new BibliotecaApp();
+
+        InputOutputDevice consoleIODevice = new ConsoleInputOutputDevice();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(consoleIODevice);
 
         int optionChosen = 0;
-        System.out.println("Welcome to The Bangalore Public Library");
+        bibliotecaApp.ioDevice.writeOutput("Welcome to The Bangalore Public Library");
 
         do {
-            app.showMenu();
-            optionChosen=Integer.parseInt(app.getInputFromUser());
-            app.performActions(optionChosen, library, customer);
+            bibliotecaApp.showMenu();
+            optionChosen=Integer.parseInt(bibliotecaApp.ioDevice.readInput());
+            bibliotecaApp.performActions(optionChosen, library, customer);
 
         } while (optionChosen != 0);
 
 
     }
 
-    private String getInputFromUser() throws IOException
-    {
-        InputStream inputStream = System.in;
-        return getInputFromUser(inputStream);
-
-    }
-    private String getInputFromUser(InputStream inputStream) throws IOException
-    {
-        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            return br.readLine();
-
-    }
-
     public void showMenu()
     {
-        System.out.println("Choose the options to go forward");
-        System.out.println("1. List Books");
-        System.out.println("2. Checkout Books");
-        System.out.println("3. Return Books");
-        System.out.println("0. Quit");
+        ioDevice.writeOutput("1. List Books\n2. Checkout Books\n3. Return Books\n0. Quit");
     }
 
-    public String performActions(int optionChosen,Library library, Customer customer)throws IOException
+    public void performActions(int optionChosen,Library library, Customer customer)throws IOException
     {
-        String str;
         switch (optionChosen) {
 
             case 0:
-                str = "You choose option 0";
-                System.out.println("Exiting!!! ");
+                ioDevice.writeOutput("Exiting!!! ");
                 break;
             case 1:
-                str="You choose option 1";
                 printBookDetails(library);
                 break;
             case 2:
-                str="You choose option 2";
                 checkoutBook(library,customer);
                 break;
             case 3:
-                str="You choose option 3";
                 returnBook(library,customer);
                 break;
 
             default:
-                str = "You have entered a wrong input.";
-                System.out.println(str);
-                System.out.println("Select a valid option from the menu list to go forward!\n");
+                ioDevice.writeOutput("You have entered a wrong input.\nSelect a valid option from the menu list to go forward!");
                 break;
         }
-        return str;
     }
 
-    private void returnBook(Library library,Customer customer) throws IOException
+    public void returnBook(Library library,Customer customer) throws IOException
     {
-        System.out.println("Enter the book name You want to return ");
-        String bookToReturn = getInputFromUser();
+        ioDevice.writeOutput("Enter the book name You want to return ");
+        String bookToReturn = ioDevice.readInput();
         try
         {
             Book returnedBook = customer.returnBook(bookToReturn);
             library.addBookToRepository(returnedBook);
-            System.out.println("Thank you for returning the book.");
+            ioDevice.writeOutput("Thank you for returning the book.");
         }
         catch(BookNotValidException e)
         {
-            System.out.println("That is not a valid book to return.");
+            ioDevice.writeOutput("That is not a valid book to return.");
         }
     }
 
     public void printBookDetails (Library library)throws IOException
     {
         if(library.getBookList().size()!=0) {
-            System.out.println("The list of books You can choose from are:");
+            ioDevice.writeOutput("The list of books You can choose from are:\n");
 
-            System.out.println("|--------------------------------------------------------------------------|");
-            System.out.printf("|%-3s%-30s%-22s%s\n","Book Id", "Book Name", "Book Author", "Publishing Year");
+            ioDevice.writeOutput("|--------------------------------------------------------------------------|");
+            System.out.printf("|%-10s%-30s%-22s%s|\n","Book Id","Book Name","Book Author","Publishing Year");
 
-            System.out.println("|---------------------------------------------------------------------------");
+            ioDevice.writeOutput("|---------------------------------------------------------------------------");
             for (int i = 0; i < library.getBookList().size(); i++) {
-                System.out.printf("|%-3d|%-30s|%-30s|%-8s|\n",i+1, library.getBookList().get(i).getBookName(), library.getBookList().get(i).getAuthorName(), library.getBookList().get(i).getYearOfPublishing());
+                System.out.printf("|%-10d|%-30s|%-30s|%-8s|\n",i+1,library.getBookList().get(i).getBookName(),library.getBookList().get(i).getAuthorName() ,library.getBookList().get(i).getYearOfPublishing());
             }
-            System.out.println();
+            ioDevice.writeOutput("");
+
         }
         else
         {
-            System.out.println("Sorry.. No books left to checkout.");
+            ioDevice.writeOutput("Sorry.. No books left to checkout.");
         }
     }
 
     public void checkoutBook(Library library, Customer customer) throws IOException
     {
-        System.out.println("Enter the book id you want to checkout from the following list of books.");
+        ioDevice.writeOutput("Enter the book id you want to checkout from the following list of books.");
         printBookDetails(library);
-        Book removedBook=null;
-        int optionChosen = Integer.parseInt(getInputFromUser());
+        int optionChosen = Integer.parseInt(ioDevice.readInput());
         try
         {
-            removedBook = library.removeBookFromList(optionChosen);
+            Book removedBook = library.removeBookFromList(optionChosen);
             customer.checkOutBook(removedBook);
-            System.out.println("Thank you! Enjoy the book.");
+            ioDevice.writeOutput("Thank you! Enjoy the book.");
         }
         catch (BookNotValidException e)
         {
-                System.out.println("That book is not available so select a different book or fix the spelling error.");
+            String line = "That book is not available so select a different book or fix the spelling error.";
+            ioDevice.writeOutput(line);
         }
     }
+
 }
