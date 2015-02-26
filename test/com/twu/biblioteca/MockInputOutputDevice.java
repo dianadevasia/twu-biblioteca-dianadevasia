@@ -30,7 +30,7 @@ public class MockInputOutputDevice implements InputOutputDevice {
     }
 
     @Override
-    public void writeOutput(String msg) {
+    public void writeOutput(String msg,Object... args) {
         this.outputmsg = msg;
     }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 interface InputOutputDevice{
     String readInput() throws IOException;
-    void writeOutput(String msg);
+    void writeOutput(String s, Object... args);
 }
 
 public class BibliotecaApp {
@@ -103,12 +103,11 @@ public class BibliotecaApp {
         if(library.getBookList().size()!=0) {
             ioDevice.writeOutput("The list of books You can choose from are:\n");
 
-            ioDevice.writeOutput("|--------------------------------------------------------------------------|");
-            System.out.printf("|%-10s%-30s%-22s%s|\n","Book Id","Book Name","Book Author","Publishing Year");
-
-            ioDevice.writeOutput("|---------------------------------------------------------------------------");
+            ioDevice.writeOutput("|------------------------------------------------------------------------------------|");
+            ioDevice.writeOutput("|%-10s%-30s%-22s%s\n", "Book Id", "Book Name", "Book Author", "Publishing Year");
+            ioDevice.writeOutput("|------------------------------------------------------------------------------------|");
             for (int i = 0; i < library.getBookList().size(); i++) {
-                System.out.printf("|%-10d|%-30s|%-30s|%-8s|\n",i+1,library.getBookList().get(i).getBookName(),library.getBookList().get(i).getAuthorName() ,library.getBookList().get(i).getYearOfPublishing());
+                ioDevice.writeOutput("|%-10d|%-30s|%-30s|%-11s|\n", i + 1, library.getBookList().get(i).getBookName(), library.getBookList().get(i).getAuthorName(), library.getBookList().get(i).getYearOfPublishing());
             }
             ioDevice.writeOutput("");
 

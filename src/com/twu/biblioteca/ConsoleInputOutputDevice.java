@@ -15,8 +15,8 @@ public class ConsoleInputOutputDevice implements InputOutputDevice {
     }
 
     @Override
-    public void writeOutput(String msg) {
-        System.out.printf(msg);
+    public void writeOutput(String msg, Object... args) {
+        System.out.printf(msg, args);
         System.out.println();
     }
 }
