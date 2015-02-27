@@ -12,6 +12,12 @@ interface InputOutputDevice{
 public class BibliotecaApp {
 
     private InputOutputDevice ioDevice;
+    private MenuAction menuSelected;
+
+
+    private void setMenuSelected(MenuAction menuSelected) {
+        this.menuSelected = menuSelected;
+    }
 
     public BibliotecaApp(InputOutputDevice ioDevice)
     {
@@ -47,6 +53,7 @@ public class BibliotecaApp {
         do {
             bibliotecaApp.showMenu();
             optionChosen=Integer.parseInt(bibliotecaApp.ioDevice.readInput());
+
             bibliotecaApp.performActions(optionChosen, library, customer);
 
         } while (optionChosen != 0);
@@ -64,85 +71,26 @@ public class BibliotecaApp {
         switch (optionChosen) {
 
             case 0:
-                ioDevice.writeOutput("Exiting!!! ");
+                setMenuSelected(new QuitMenuActionImpl());
+                menuSelected.doAction(library,customer,ioDevice);
                 break;
             case 1:
-                printBookDetails(library);
+                setMenuSelected(new PrintBookMenuActionImpl());
+                menuSelected.doAction(library, customer, ioDevice);
                 break;
             case 2:
-                checkoutBook(library,customer);
+                setMenuSelected(new PrintBookMenuActionImpl());
+                setMenuSelected(new CheckoutMenuActionImpl());
+                menuSelected.doAction(library, customer, ioDevice);
                 break;
             case 3:
-                returnBook(library,customer);
+                setMenuSelected(new ReturnBookMenuActionImpl());
+                menuSelected.doAction(library, customer, ioDevice);
                 break;
 
             default:
                 ioDevice.writeOutput("You have entered a wrong input.\nSelect a valid option from the menu list to go forward!");
                 break;
-        }
-    }
-
-
-    public void printBookDetails (Library library)throws IOException
-    {
-        if(library.getBookList().size()!=0) {
-            ioDevice.writeOutput("The list of books You can choose from are:\n");
-
-            ioDevice.writeOutput("|------------------------------------------------------------------------------------|");
-            ioDevice.writeOutput("|%-10s%-30s%-22s%s\n", "Book Id", "Book Name", "Book Author", "Publishing Year");
-            ioDevice.writeOutput("|------------------------------------------------------------------------------------|");
-            for (int i = 0; i < library.getBookList().size(); i++) {
-                ioDevice.writeOutput("|%-10d|%-30s|%-30s|%-11s|\n", i + 1, library.getBookList().get(i).getBookName(), library.getBookList().get(i).getAuthorName(), library.getBookList().get(i).getYearOfPublishing());
-            }
-            ioDevice.writeOutput("");
-
-        }
-        else
-        {
-            ioDevice.writeOutput("Sorry.. No books left to checkout.");
-        }
-    }
-
-    public void returnBook(Library library,Customer customer) throws IOException
-    {
-        ioDevice.writeOutput("Enter the book name You want to return ");
-        String bookToReturn = ioDevice.readInput();
-        try
-        {
-            Book returnedBook = customer.returnBook(bookToReturn);
-            library.addBookToRepository(returnedBook);
-            ioDevice.writeOutput("Thank you for returning the book.");
-        }
-        catch(BookNotValidException e)
-        {
-            ioDevice.writeOutput("That is not a valid book to return.");
-        }
-    }
-
-    public void checkoutBook(Library library, Customer customer) throws IOException
-    {
-        String bookId;
-        ioDevice.writeOutput("Enter the book id you want to checkout from the following list of books.");
-        boolean isNotValidBookId;
-        do {
-            printBookDetails(library);
-            bookId = ioDevice.readInput();
-            isNotValidBookId = !bookId.matches("[0-9]+");
-            if(isNotValidBookId)
-                ioDevice.writeOutput("Please enter a numeric book id value");
-        }while(isNotValidBookId);
-
-        int optionChosen = Integer.parseInt(bookId);
-        try
-        {
-            Book removedBook = library.removeBookFromList(optionChosen);
-            customer.checkOutBook(removedBook);
-            ioDevice.writeOutput("Thank you! Enjoy the book.");
-        }
-        catch (BookNotValidException e)
-        {
-            String line = "That book is not available so select a different book or fix the spelling error.";
-            ioDevice.writeOutput(line);
         }
     }
 
