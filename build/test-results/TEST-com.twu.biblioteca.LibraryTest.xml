@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.twu.biblioteca.LibraryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-02-27T12:11:21" hostname="INdianadev.local" time="0.001">
-  <properties/>
-  <testcase name="testValidateBookId" classname="com.twu.biblioteca.LibraryTest" time="0.0"/>
-  <testcase name="testRemoveInvalidBookFromList" classname="com.twu.biblioteca.LibraryTest" time="0.0"/>
-  <testcase name="testRemoveBookFromListSuccessfully" classname="com.twu.biblioteca.LibraryTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

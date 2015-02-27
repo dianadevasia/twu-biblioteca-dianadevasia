@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.twu.biblioteca.CheckoutMenuActionImplTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2015-02-27T12:11:21" hostname="INdianadev.local" time="0.005">
-  <properties/>
-  <testcase name="testCheckOutInvalidBook" classname="com.twu.biblioteca.CheckoutMenuActionImplTest" time="0.002"/>
-  <testcase name="testCheckOutValidBook" classname="com.twu.biblioteca.CheckoutMenuActionImplTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
