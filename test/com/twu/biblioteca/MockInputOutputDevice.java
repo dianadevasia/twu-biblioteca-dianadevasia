@@ -22,11 +22,7 @@ public class MockInputOutputDevice implements InputOutputDevice {
 
     @Override
     public String readInput() throws IOException{
-
-        InputStream inputStream = new ByteArrayInputStream(inputmsg.getBytes());
-        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-        return br.readLine();
-
+        return inputmsg;
     }
 
     @Override

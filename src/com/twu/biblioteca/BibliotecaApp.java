@@ -82,21 +82,6 @@ public class BibliotecaApp {
         }
     }
 
-    public void returnBook(Library library,Customer customer) throws IOException
-    {
-        ioDevice.writeOutput("Enter the book name You want to return ");
-        String bookToReturn = ioDevice.readInput();
-        try
-        {
-            Book returnedBook = customer.returnBook(bookToReturn);
-            library.addBookToRepository(returnedBook);
-            ioDevice.writeOutput("Thank you for returning the book.");
-        }
-        catch(BookNotValidException e)
-        {
-            ioDevice.writeOutput("That is not a valid book to return.");
-        }
-    }
 
     public void printBookDetails (Library library)throws IOException
     {
@@ -118,16 +103,34 @@ public class BibliotecaApp {
         }
     }
 
+    public void returnBook(Library library,Customer customer) throws IOException
+    {
+        ioDevice.writeOutput("Enter the book name You want to return ");
+        String bookToReturn = ioDevice.readInput();
+        try
+        {
+            Book returnedBook = customer.returnBook(bookToReturn);
+            library.addBookToRepository(returnedBook);
+            ioDevice.writeOutput("Thank you for returning the book.");
+        }
+        catch(BookNotValidException e)
+        {
+            ioDevice.writeOutput("That is not a valid book to return.");
+        }
+    }
+
     public void checkoutBook(Library library, Customer customer) throws IOException
     {
         String bookId;
         ioDevice.writeOutput("Enter the book id you want to checkout from the following list of books.");
+        boolean isNotValidBookId;
         do {
             printBookDetails(library);
             bookId = ioDevice.readInput();
-            if(!bookId.matches("[0-9]"))
+            isNotValidBookId = !bookId.matches("[0-9]+");
+            if(isNotValidBookId)
                 ioDevice.writeOutput("Please enter a numeric book id value");
-        }while(!bookId.matches("[0-9]"));
+        }while(isNotValidBookId);
 
         int optionChosen = Integer.parseInt(bookId);
         try
@@ -141,6 +144,11 @@ public class BibliotecaApp {
             String line = "That book is not available so select a different book or fix the spelling error.";
             ioDevice.writeOutput(line);
         }
+    }
+
+    public void getInputFromUserAndWriteSomething() throws IOException {
+        String input = ioDevice.readInput();
+        ioDevice.writeOutput(input + " Appended");
     }
 
 }

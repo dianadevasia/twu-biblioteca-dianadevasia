@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.twu.biblioteca.BibliotecaAppTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2015-02-27T05:41:49" hostname="INdianadev.local" time="0.216">
+  <properties/>
+  <testcase name="testValidatePerformActionExistsOnInputValueThree" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.006"/>
+  <testcase name="testValidatePerformActionExistsOnInputValueZero" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.0"/>
+  <testcase name="testValidatePerformActionExistsOnInputValueTwo" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.0"/>
+  <testcase name="testCheckOutInvalidBook" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.012"/>
+  <testcase name="testShowMenu" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.0"/>
+  <testcase name="testValidatePerformActionRerunsOnInvalidInputValue" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.0"/>
+  <testcase name="testCheckOutValidBook" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.004"/>
+  <testcase name="testReturnValidBook" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.0"/>
+  <testcase name="testIfMock1" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.19"/>
+  <testcase name="testReturnInValidBook" classname="com.twu.biblioteca.BibliotecaAppTest" time="0.0"/>
+  <system-out><![CDATA[still not invoked the function
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

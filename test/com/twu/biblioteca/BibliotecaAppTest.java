@@ -6,10 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.twu.biblioteca.BibliotecaApp.getBookList;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 
 public class BibliotecaAppTest {
 
@@ -55,6 +56,9 @@ public class BibliotecaAppTest {
 
         assertThat(ioDevice.getActualWrittenOutput(), is(expected));
     }
+
+
+
 
     @Test
     public void testValidatePerformActionExistsOnInputValueThree() throws IOException
@@ -109,7 +113,6 @@ public class BibliotecaAppTest {
         assertThat(booklist, not(hasItem(checkedOutBook)));
     }
 
-
     @Test
     public void testCheckOutInvalidBook() throws IOException
     {
@@ -119,11 +122,14 @@ public class BibliotecaAppTest {
         MockInputOutputDevice ioDevice = new MockInputOutputDevice("100");
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
 
+        System.out.println("still not invoked the function");
+
         String expected="That book is not available so select a different book or fix the spelling error.";
         bibliotecaApp.checkoutBook(library, customer);
 
         assertThat(ioDevice.getActualWrittenOutput(), is(expected));
     }
+
 
     @Test
     public void testReturnValidBook() throws IOException
@@ -159,5 +165,18 @@ public class BibliotecaAppTest {
 
         String expected="That is not a valid book to return.";
         assertThat(ioDeviceForReturn.getActualWrittenOutput(), is(expected));
+    }
+
+    @Test
+    public void testIfMock() throws IOException {
+        InputOutputDevice device = mock(InputOutputDevice.class);
+        final String userInputString = "My First Mock";
+        BibliotecaApp app = new BibliotecaApp(device);
+
+        when(device.readInput()).thenReturn(userInputString);
+
+        app.getInputFromUserAndWriteSomething();
+
+        verify(device).writeOutput(userInputString + " Appended");
     }
 }

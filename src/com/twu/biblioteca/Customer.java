@@ -1,13 +1,14 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dianadevasia on 25/02/15.
  */
 public class Customer {
     private String name;
-    private ArrayList<Book> borrowedBooksList =new ArrayList<Book>();
+    private List<Book> borrowedBooksList =new ArrayList<Book>();
 
     public Iterable<Book> getBorrowedBooksList() {
         return borrowedBooksList;
