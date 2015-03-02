@@ -1,9 +1,9 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.core;
 
 /**
  * Created by dianadevasia on 25/02/15.
  */
-class Book
+public class Book
 {
     private String bookName;
     private String authorName;

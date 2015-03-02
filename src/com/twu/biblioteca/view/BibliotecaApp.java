@@ -1,13 +1,12 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.view;
+
+import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.Library;
 
 import java.io.*;
 import java.util.ArrayList;
 
-
-interface InputOutputDevice{
-    String readInput() throws IOException;
-    void writeOutput(String s, Object... args);
-}
 
 public class BibliotecaApp {
 

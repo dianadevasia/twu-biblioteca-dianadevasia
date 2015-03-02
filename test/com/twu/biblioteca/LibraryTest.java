@@ -1,5 +1,8 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.BookNotValidException;
+import com.twu.biblioteca.core.Library;
 import org.junit.Test;
 
 import java.util.ArrayList;

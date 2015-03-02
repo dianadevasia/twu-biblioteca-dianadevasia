@@ -1,11 +1,11 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.core;
 
 import java.util.ArrayList;
 
 /**
  * Created by dianadevasia on 25/02/15.
  */
-class Library
+public class Library
 {
     private ArrayList<Book> bookList;
 

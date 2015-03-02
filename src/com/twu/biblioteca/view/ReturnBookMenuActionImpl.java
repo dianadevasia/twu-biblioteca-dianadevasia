@@ -1,4 +1,9 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.view;
+
+import com.twu.biblioteca.core.BookNotValidException;
+import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.Library;
 
 import java.io.IOException;
 

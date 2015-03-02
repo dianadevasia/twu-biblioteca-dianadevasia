@@ -1,11 +1,16 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.Library;
+import com.twu.biblioteca.view.BibliotecaApp;
+import com.twu.biblioteca.view.InputOutputDevice;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.twu.biblioteca.BibliotecaApp.getBookList;
+import static com.twu.biblioteca.view.BibliotecaApp.getBookList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;

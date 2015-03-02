@@ -1,4 +1,4 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;

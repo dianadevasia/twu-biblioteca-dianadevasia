@@ -33,7 +33,7 @@ jar{
     manifest{
         attributes 'Implementation-Title':'Biblioteca-app',
                     'Implementation-Version':1.0,
-                    'Main-Class':'com.twu.biblioteca.BibliotecaApp'
+                    'Main-Class':'com.twu.biblioteca.view.BibliotecaApp'
     }
 }
 

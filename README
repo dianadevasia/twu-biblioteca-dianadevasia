@@ -2,6 +2,14 @@
 
 -> Open the project in intellij using gradle.
 
+->Create a file called build.gradle with the following:
+    *By default the source files are searched inside src/java/. If the project structure is changed,
+     then in sourceSets the path is written.
+
+    *All the dependent libraries are specified inside the dependencies tag.
+
+    *In the manifest tag inside the jar tag, we specify the location of the entry point function.
+
 ->To build run the following command:
     :: gradle build
 
@@ -13,7 +21,7 @@
 ->It displays the summary of the tests ran and the tests failed.
 
 ->Now the project can be run using the command:
-    java jar <path-to-your-project>/build/libs<name-of-the-jar>
+    java -jar <path-to-your-project>/build/libs<name-of-the-jar>
 
 -> When the project runs the menu options are displayed.
     1. displaying list of books.

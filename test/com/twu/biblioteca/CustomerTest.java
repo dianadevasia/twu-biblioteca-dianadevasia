@@ -1,5 +1,8 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.BookNotValidException;
+import com.twu.biblioteca.core.Customer;
 import org.junit.Test;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
@@ -11,8 +14,6 @@ import static org.junit.Assert.fail;
 
 
 public class CustomerTest {
-
-
     @Test
     public void testCheckOutBook() {
         Customer customer = new Customer("diana");
@@ -46,9 +47,4 @@ public class CustomerTest {
         assertEquals(returnedBook, null);
         fail("Book Exception not thrown");
     }
-
-
-
-
-
 }

@@ -1,11 +1,16 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.Library;
+import com.twu.biblioteca.view.CheckoutMenuActionImpl;
+import com.twu.biblioteca.view.MenuAction;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.twu.biblioteca.BibliotecaApp.getBookList;
+import static com.twu.biblioteca.view.BibliotecaApp.getBookList;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -42,6 +47,4 @@ public class CheckoutMenuActionImplTest {
 
         assertThat(ioDevice.getActualWrittenOutput(), is(expected));
     }
-
-
 }

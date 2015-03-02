@@ -1,4 +1,4 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.core;
 
 import java.util.ArrayList;
 import java.util.List;
