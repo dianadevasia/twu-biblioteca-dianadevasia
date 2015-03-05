@@ -1,4 +1,4 @@
-package com.twu.biblioteca.view.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations;
 
 import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.MenuAction;

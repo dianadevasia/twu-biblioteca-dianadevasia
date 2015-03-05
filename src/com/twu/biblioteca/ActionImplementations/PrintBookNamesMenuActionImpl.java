@@ -1,4 +1,4 @@
-package com.twu.biblioteca.view.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations;
 
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Library;
@@ -13,33 +13,31 @@ public class PrintBookNamesMenuActionImpl implements MenuAction<Book> {
 
     Library<Book> bookLibrary;
 
-    public PrintBookNamesMenuActionImpl(Library<Book> bookLibrary){
-        this.bookLibrary=bookLibrary;
+    public PrintBookNamesMenuActionImpl(Library<Book> bookLibrary) {
+        this.bookLibrary = bookLibrary;
     }
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp)
-    {
+    public void doAction(BibliotecaApp bibliotecaApp) {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
-        if(bookLibrary.getListOfItemsPresentInLibrary().size()!=0) {
+
+        if (!bookLibrary.hasItems())
+            ioDevice.writeOutput("Sorry.. No books left to checkout.");
+
+        if (bookLibrary.hasItems()) {
             ioDevice.writeOutput("The list of books You can choose from are:\n");
 
             ioDevice.writeOutput("|------------------------------------------------------------------------------------|");
             ioDevice.writeOutput("|%-10s%-30s%-22s%s\n", "Book Id", "Book Name", "Book Author", "Publishing Year");
             ioDevice.writeOutput("|------------------------------------------------------------------------------------|");
-            for (int i = 0; i < bookLibrary.getListOfItemsPresentInLibrary().size(); i++) {
-                ioDevice.writeOutput("|%-10d|%-30s|%-30s|%-11s|\n", i + 1, bookLibrary.getListOfItemsPresentInLibrary().get(i).getName(), bookLibrary.getListOfItemsPresentInLibrary().get(i).getAuthorName(), bookLibrary.getListOfItemsPresentInLibrary().get(i).getYearOfPublishing());
+            for (Book each : bookLibrary.getListOfItemsPresentInLibrary()) {
+                ioDevice.writeOutput("|%-10d|%-30s|%-30s|%-11s|\n", each.getBookId(), each.getName(), each.getAuthorName(), each.getYearOfPublishing());
             }
             ioDevice.writeOutput("");
         }
-        else
-        {
-            ioDevice.writeOutput("Sorry.. No books left to checkout.");
-        }
     }
 
-    public String printMenu()
-    {
+    public String printMenu() {
         return "Print Books Available.";
     }
 }

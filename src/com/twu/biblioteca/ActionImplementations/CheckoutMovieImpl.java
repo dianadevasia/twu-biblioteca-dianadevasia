@@ -1,5 +1,6 @@
-package com.twu.biblioteca.view.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations;
 
+import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.core.Movie;
 import com.twu.biblioteca.error.MovieNotValidException;
@@ -24,10 +25,11 @@ public class CheckoutMovieImpl implements MenuAction {
     public void doAction(BibliotecaApp bibliotecaApp)
     {
             InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
+            Customer customer = bibliotecaApp.getLoggedInCustomer();
             ioDevice.writeOutput("Enter the movie id you want to checkout from the above list of movies.");
             try {
-                int optionChosen = ioDevice.readInt("Please enter a valid numeric movie id.");
-                movieLibrary.removeItemFromList(optionChosen, bibliotecaApp.getLoggedInCustomer());
+                int movieId = ioDevice.readInt("Please enter a valid numeric movie id.");
+                customer.checkOutItem(movieId,movieLibrary);
                 ioDevice.writeOutput("Thank you! Enjoy the Movie.");
             } catch (MovieNotValidException e) {
                 String line = "That movie is not available so select a different movie or fix the spelling error.";

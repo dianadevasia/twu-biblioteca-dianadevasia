@@ -17,10 +17,10 @@ public class SeedData
 
     public SeedData()
     {
-        bookList.add(new Book("Learning Python", "Mark Lutz", 2009));
-        bookList.add(new Book("HeadFirst Java", "Kathy Sierra", 2005));
-        bookList.add(new Book("Test Driven Development", "Kent Beck", 2003));
-        bookList.add(new Book("Java (TM) Design Patterns", "James W Cooper", 2000));
+        bookList.add(new Book(1,"Learning Python", "Mark Lutz", 2009));
+        bookList.add(new Book(2,"HeadFirst Java", "Kathy Sierra", 2005));
+        bookList.add(new Book(3,"Test Driven Development", "Kent Beck", 2003));
+        bookList.add(new Book(4,"Java (TM) Design Patterns", "James W Cooper", 2000));
 
         movieList.add(new Movie(1, "Life Of Pie", "Yann Martel", 2006, 7));
         movieList.add(new Movie(2, "Spider Man", "Sam Raimi", 2002, 8));

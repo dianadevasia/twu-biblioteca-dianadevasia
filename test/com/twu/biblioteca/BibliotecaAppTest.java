@@ -1,5 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.ActionImplementations.CheckoutBookImpl;
+import com.twu.biblioteca.ActionImplementations.CustomerLoginImpl;
+import com.twu.biblioteca.ActionImplementations.QuitMenuActionImpl;
+import com.twu.biblioteca.ActionImplementations.ReturnBookImpl;
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
@@ -8,10 +12,6 @@ import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.MenuAction;
-import com.twu.biblioteca.view.ActionImplementations.CheckoutBookImpl;
-import com.twu.biblioteca.view.ActionImplementations.CustomerLoginImpl;
-import com.twu.biblioteca.view.ActionImplementations.QuitMenuActionImpl;
-import com.twu.biblioteca.view.ActionImplementations.ReturnBookImpl;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
-
 public class BibliotecaAppTest {
 
 //    @Test
@@ -31,8 +30,18 @@ public class BibliotecaAppTest {
 //        MockInputOutputDevice ioDevice = new MockInputOutputDevice();
 //        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
 //
-//        String expected="1. Login\n2. List Books\n3. Checkout Books\n4. Return Books\n5. List Movies\n6. Checkout Movie\n7. My Information\n0. Quit";
-//        bibliotecaApp.showMenu();
+//        SeedData instance= new SeedData();
+//        List<Book> booklist = instance.allBooks();
+//        Library<Book> bookLibrary = new Library<Book>(booklist);
+//
+//        List<Movie> movielist = instance.allMovies();
+//        Library<Movie> movieLibrary = new Library<Movie>(movielist);
+//
+//
+//        bibliotecaApp.menu=new Menu(MenuItemGenerator.createMenu(bookLibrary,movieLibrary));
+//
+//        String expected="0\tQuit\n1\tList Books\n2\tCheckout Books\n3\tReturn Books\n4\tList Movies\n5\tCheckout Movie\n6\tMy Information\n7\tLogout";
+//        bibliotecaApp.menu.showMenu(ioDevice);
 //
 //        assertThat(ioDevice.getActualWrittenOutput(),is(expected));
 //    }
@@ -101,7 +110,7 @@ public class BibliotecaAppTest {
         List<Book> booklist = instance.allBooks();
         Library<Book> bookLibrary = new Library<Book>(booklist);
         Customer customer= bibliotecaApp.customerList.get(0);
-        customer.checkOutItem(booklist.get(0));
+        customer.checkOutItem(booklist.get(0).getBookId(),bookLibrary);
         int optionChosen=0;
 
         List<MenuAction>menuActionList=new ArrayList<MenuAction>();
@@ -151,7 +160,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testCustomerLoginFailure() throws IOException {
-        List<String>input=new ArrayList<String>();
+        List<String> input=new ArrayList<String>();
         input.add("111-1");
         input.add("aaaa");
         input.add("n");
@@ -177,40 +186,5 @@ public class BibliotecaAppTest {
 
         verify(device).writeOutput(userInputString + " Appended");
     }
-
-
-//    @Test
-//    public void dummy(){
-//        box b=new box();
-//        createchiller(b);
-//
-//        assertTrue(b.getC() != null);
-//    }
-//
-//    void createchiller(box b){
-//        b.setC(new chiller(5));
-//        return;
-//    }
-//
-//    class chiller{
-//        int a;
-//
-//        public chiller(int a) {
-//            this.a = a;
-//        }
-//    }
-//
-//    class box{
-//        chiller c;
-//
-//        public chiller getC() {
-//            return c;
-//        }
-//
-//        public void setC(chiller c) {
-//            this.c = c;
-//        }
-//    }
-
 
 }

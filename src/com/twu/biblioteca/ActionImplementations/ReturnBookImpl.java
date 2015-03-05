@@ -1,4 +1,4 @@
-package com.twu.biblioteca.view.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations;
 
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
@@ -29,8 +29,7 @@ public class ReturnBookImpl implements MenuAction<Book> {
         {
             ioDevice.writeOutput("Enter the name of the item You want to return ");
             String bookToReturn = ioDevice.readInput();
-            Book returnedItem = (Book)customer.returnItem(bookToReturn);
-            bookLibrary.addItemToRepository(returnedItem);
+            customer.returnItem(bookToReturn,bookLibrary);
             ioDevice.writeOutput("Thank you for returning.");
         }
         catch(BookNotValidException e)

@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
-import com.twu.biblioteca.view.ActionImplementations.CustomerLoginImpl;
+import com.twu.biblioteca.ActionImplementations.CustomerLoginImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

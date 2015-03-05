@@ -1,8 +1,7 @@
 package com.twu.biblioteca.core;
 
-import com.twu.biblioteca.view.ActionImplementations.LogoutImpl;
+import com.twu.biblioteca.ActionImplementations.*;
 import com.twu.biblioteca.view.MenuAction;
-import com.twu.biblioteca.view.ActionImplementations.*;
 
 import java.util.ArrayList;
 import java.util.List;

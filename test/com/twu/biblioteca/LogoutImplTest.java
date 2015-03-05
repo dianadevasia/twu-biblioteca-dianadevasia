@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
-import com.twu.biblioteca.view.ActionImplementations.LogoutImpl;
+import com.twu.biblioteca.ActionImplementations.LogoutImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

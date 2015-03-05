@@ -4,10 +4,10 @@ import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.data.SeedData;
+import com.twu.biblioteca.ActionImplementations.CheckoutBookImpl;
+import com.twu.biblioteca.ActionImplementations.CustomerLoginImpl;
+import com.twu.biblioteca.ActionImplementations.ReturnBookImpl;
 import com.twu.biblioteca.view.BibliotecaApp;
-import com.twu.biblioteca.view.ActionImplementations.CheckoutBookImpl;
-import com.twu.biblioteca.view.ActionImplementations.CustomerLoginImpl;
-import com.twu.biblioteca.view.ActionImplementations.ReturnBookImpl;
 import org.junit.Test;
 
 import java.io.IOException;

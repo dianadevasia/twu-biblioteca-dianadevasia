@@ -50,26 +50,24 @@ public class Customer
         return authentication;
     }
 
-    public void checkOutItem(Item removedItem) {
+    public void checkOutItem(int removedItemId, Library library) {
+      Item removedItem = library.removeItemFromList(removedItemId);
         borrowedList.add(removedItem);
     }
 
-    public Item returnItem(String itemToRemove){
+    public void returnItem(String itemToRemove,Library library){
 
         Item returnedItem = returnValidItem(itemToRemove);
-
-        return returnedItem;
+        library.addItemToRepository(returnedItem);
     }
 
-    public Item returnValidItem(String itemToReturn)  {
-        int i;
+    private Item returnValidItem(String itemToReturn)  {
         Item itemToRemove=null;
-        for(i=0;i< borrowedList.size();i++)
+        for(Item each : borrowedList)
         {
-            Item t = getBorrowedList().get(i);
-            if(t.getName().equals(itemToReturn))
+            if(each.getName().equals(itemToReturn))
             {
-                itemToRemove= borrowedList.remove(i);
+                itemToRemove= each;
                 break;
             }
         }
@@ -79,6 +77,7 @@ public class Customer
             else
                 throw new MovieNotValidException();
         }
+        borrowedList.remove(itemToRemove);
         return itemToRemove;
     }
 }

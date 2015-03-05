@@ -1,6 +1,7 @@
-package com.twu.biblioteca.view.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations;
 
 import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.error.BookNotValidException;
 import com.twu.biblioteca.view.BibliotecaApp;
@@ -24,11 +25,12 @@ public class CheckoutBookImpl implements MenuAction<Book> {
     public void doAction(BibliotecaApp bibliotecaApp)
     {
         InputOutputDevice ioDevice=bibliotecaApp.getIoDevice();
+        Customer customer = bibliotecaApp.getLoggedInCustomer();
         ioDevice.writeOutput("Enter the Book id you want to checkout from the above list of Books.");
         try
         {
-            int optionChosen = ioDevice.readInt("Please enter a numeric book id value");
-            bookLibrary.removeItemFromList(optionChosen, bibliotecaApp.getLoggedInCustomer());
+            int bookId = ioDevice.readInt("Please enter a numeric book id value");
+            customer.checkOutItem(bookId, bookLibrary);
             ioDevice.writeOutput("Thank you! Enjoy the Book.");
         }
 

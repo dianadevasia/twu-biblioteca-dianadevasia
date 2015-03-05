@@ -14,7 +14,7 @@ public class Menu {
 
     Map<Integer,MenuAction> menuItems = new HashMap<Integer,MenuAction>();
 
-    Menu(List<MenuAction> menuItems)
+    public Menu(List<MenuAction> menuItems)
     {
         for(int i=0;i<menuItems.size();i++)
             this.menuItems.put(i, menuItems.get(i));

@@ -1,9 +1,13 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.core.Book;
-import com.twu.biblioteca.error.BookNotValidException;
 import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.Library;
+import com.twu.biblioteca.error.BookNotValidException;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
@@ -15,33 +19,42 @@ public class CustomerTest {
     @Test
     public void testCheckOutBook() {
         Customer customer = new Customer("111-1111","aabcd");
-        Book book = new Book("Xtreme Programming", "Kent Beck", 2000);
+        List<Book> bookList = new ArrayList<Book>();
+        Book checkedOutBook = new Book(1, "Xtreme Programming", "Kent Beck", 2000);
+        bookList.add(checkedOutBook);
 
-        customer.checkOutItem(book);
+        Library<Book> bookLibrary = new Library<Book>(bookList);
+        customer.checkOutItem(1,bookLibrary);
 
-        assertThat(customer.getBorrowedList(), hasItem(book));
+        assertThat(customer.getBorrowedList(), hasItem(checkedOutBook));
     }
 
     @Test
     public void testReturnValidBook() {
         Customer customer = new Customer("111-1111","aabcd");
-        Book book = new Book("Xtreme Programming", "Kent Beck", 2000);
-        customer.checkOutItem(book);
+        List<Book> bookList = new ArrayList<Book>();
+        Book returnedBook = new Book(1, "Xtreme Programming", "Kent Beck", 2000);
+        bookList.add(returnedBook);
 
-        Book returnedBook = (Book)customer.returnItem("Xtreme Programming");
-        assertEquals(book, returnedBook);
+        Library<Book> bookLibrary = new Library<Book>(bookList);
+        customer.checkOutItem(1,bookLibrary);
+
+        customer.returnItem("Xtreme Programming", bookLibrary);
         assertThat(customer.getBorrowedList(), not(hasItem(returnedBook)));
     }
 
     @Test(expected = BookNotValidException.class)
     public void testReturnInValidBook() {
         Customer customer = new Customer("111-1111","aabcd");
-        Book book = new Book("Xtreme Programming", "Kent Beck", 2000);
-        customer.checkOutItem(book);
+        List<Book> bookList = new ArrayList<Book>();
+        Book returnedBook = new Book(1, "Xtreme Programming", "Kent Beck", 2000);
+        bookList.add(returnedBook);
 
-        Book returnedBook = (Book)customer.returnItem("Xtreme Programming2");
+        Library<Book> bookLibrary = new Library<Book>(bookList);
+        customer.checkOutItem(1,bookLibrary);
 
-        assertEquals(returnedBook, null);
+        customer.returnItem("Xtreme Programming2", bookLibrary);
+
         fail("Book Exception not thrown");
     }
 }

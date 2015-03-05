@@ -1,4 +1,4 @@
-package com.twu.biblioteca.view.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations;
 
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.view.BibliotecaApp;
@@ -51,13 +51,11 @@ public class CustomerLoginImpl implements MenuAction
                     ioDevice.writeOutput("Enter your password");
                     String customerPassword = ioDevice.readInput();
 
-                /* Works just for console.
+                // Works just for console.
 
-                Console console = System.console();
-                String customerId = console.readLine("Username: ");
-                String customerPassword = String.valueOf(console.readPassword("Password: "));
-
-                */
+//                Console console = System.console();
+//                String customerId = console.readLine("Username: ");
+//                String customerPassword = String.valueOf(console.readPassword("Password: "));
 
                     customer = validateCustomer(customerId, customerPassword);
 

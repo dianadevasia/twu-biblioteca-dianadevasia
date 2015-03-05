@@ -2,8 +2,8 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
-import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.core.Library;
+import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.error.BookNotValidException;
 import org.junit.Test;
 
@@ -23,7 +23,6 @@ public class LibraryTest {
         List<Book> booklist = instance.allBooks();
         Library<Book> library = new Library<Book>(booklist);
 
-
         library.validateId(-1);
 
         fail("Did not get exception");
@@ -37,9 +36,8 @@ public class LibraryTest {
         Library<Book> library = new Library<Book>(booklist);
         Book bookToRemove=booklist.get(0);
 
-        Customer customer = new Customer("111-1111","aabcd");
+        library.removeItemFromList(1);
 
-        library.removeItemFromList(1, customer);
         assertThat(library.getListOfItemsPresentInLibrary(), not(hasItem(bookToRemove)));
     }
 
@@ -52,7 +50,7 @@ public class LibraryTest {
 
         Customer customer = new Customer("111-1111","aabcd");
 
-        library.removeItemFromList(10, customer);
+        library.removeItemFromList(10);
 
         fail("Did not get exception");
     }

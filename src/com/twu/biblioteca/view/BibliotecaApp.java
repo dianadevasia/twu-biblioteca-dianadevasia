@@ -1,11 +1,12 @@
 package com.twu.biblioteca.view;
 
-import com.twu.biblioteca.core.*;
-import com.twu.biblioteca.data.SeedData;
+import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class BibliotecaApp
@@ -35,53 +36,62 @@ public class BibliotecaApp
         return menu;
     }
 
-    public void setMenu(List<MenuAction> menu) {
-        this.menu = new Menu(menu);
-    }
-
     public Customer getLoggedInCustomer() {
         return loggedInCustomer;
-    }
-
-    public void setLoggedInCustomer(Customer loggedInCustomer) {
-        this.loggedInCustomer = loggedInCustomer;
     }
 
     public InputOutputDevice getIoDevice() {
         return ioDevice;
     }
 
-    public static void main(String[] args) throws IOException
-    {
-
-        SeedData seedDataInstance = new SeedData();
-        Library<Book> bookLibrary = new Library<Book>(seedDataInstance.allBooks());
-        Library<Movie> movieLibrary = new Library<Movie>(seedDataInstance.allMovies());
-
-        InputOutputDevice consoleIODevice = new ConsoleInputOutputDevice();
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(consoleIODevice);
-
-        bibliotecaApp.menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
-
-        int optionChosen;
-        bibliotecaApp.ioDevice.writeOutput("Welcome to The Bangalore Public Library");
-
-        do {
-            bibliotecaApp.getMenu().showMenu(bibliotecaApp.ioDevice);
-
-            optionChosen = bibliotecaApp.ioDevice.readInt("Please enter a numeric value for menu id.");
-
-            try {
-                bibliotecaApp.menu.performActions(optionChosen,bibliotecaApp);
-                System.out.println(bibliotecaApp.loggedInCustomer);
-            }
-            catch (InvalidMenuOptionChoosen e){
-                bibliotecaApp.ioDevice.writeOutput("You have entered a wrong input.\nSelect a valid option from the menu list to go forward!");
-            }
-
-        } while (optionChosen != 0);
+    public void setLoggedInCustomer(Customer loggedInCustomer) {
+        this.loggedInCustomer = loggedInCustomer;
     }
 
+    public void setMenu(List<MenuAction> menu) {
+        this.menu = new Menu(menu);
+    }
+
+    private int readInteger() throws IOException
+    {
+        return ioDevice.readInt("Please enter a numeric value for menu id.");
+    }
+
+    public void welcomeMessage() {
+        ioDevice.writeOutput("Welcome to The Bangalore Public Library");
+    }
+
+
+    public int getMenuCodeForQuitMenu(Map<Integer, MenuAction> menuActionHashMap) {
+        for (Map.Entry<Integer, MenuAction> entry : menuActionHashMap.entrySet()) {
+            if (entry.getValue().equals("new QuitMenuActionImpl()")) {
+                return entry.getKey();
+            }
+        }
+        return 0;
+    }
+
+    public void menuProcessing() throws IOException
+    {
+        int quitMenuCode = getMenuCodeForQuitMenu(menu.menuItems);
+        int optionChosenForMenuSelection;
+        do {
+            menu.showMenu(ioDevice);
+
+            optionChosenForMenuSelection = readInteger();
+
+            try {
+                menu.performActions(optionChosenForMenuSelection,this);
+            }
+            catch (InvalidMenuOptionChoosen e){
+                ioDevice.writeOutput("You have entered a wrong input.");
+                ioDevice.writeOutput("Select a valid option from the menu list to go forward!");
+            }
+
+        } while (optionChosenForMenuSelection != quitMenuCode);
+    }
+
+    // use for mock. //
     public void getInputFromUserAndWriteSomething() throws IOException {
         String input = ioDevice.readInput();
         ioDevice.writeOutput(input + " Appended");

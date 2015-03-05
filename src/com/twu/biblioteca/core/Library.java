@@ -26,22 +26,30 @@ public class Library <T extends Item>
 
     public void validateId(int optionChosen) {
         int limitCrossed = listOfItemsPresentInLibrary.size() + 1;
-        if (optionChosen < 1 || optionChosen >= limitCrossed)
-            if(listOfItemsPresentInLibrary.get(0) instanceof Book)
+        if (optionChosen < 1 || optionChosen >= limitCrossed) {
+            if (listOfItemsPresentInLibrary.get(0) instanceof Book)
                 throw new BookNotValidException();
             else
                 throw new MovieNotValidException();
+        }
     }
 
-    public void removeItemFromList(int optionChosen, Customer customer) {
+    public Item removeItemFromList(int optionChosen) {
         validateId(optionChosen);
         T removedItem = listOfItemsPresentInLibrary.get(optionChosen - 1);
         listOfItemsPresentInLibrary.remove(optionChosen - 1);
 //        listOfItemsBorrowedWithCustomerInformation.put(removedItem,customer);
-        customer.checkOutItem(removedItem);
+        return removedItem;
     }
+
+
 
     public void addItemToRepository(T returnedItem) {
         listOfItemsPresentInLibrary.add(returnedItem);
+    }
+
+    public boolean hasItems()
+    {
+         return (listOfItemsPresentInLibrary.size()!=0);
     }
 }

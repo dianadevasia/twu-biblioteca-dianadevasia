@@ -5,11 +5,13 @@ package com.twu.biblioteca.core;
  */
 public class Book extends Item
 {
+    private int bookId;
     private String authorName;
     private int yearOfPublishing;
 
-    public Book(String bookName, String authorName, int yearOfPublishing)
+    public Book(int bookId,String bookName, String authorName, int yearOfPublishing)
     {
+        this.bookId = bookId;
         this.name = bookName;
         this.authorName = authorName;
         this.yearOfPublishing = yearOfPublishing;
@@ -25,5 +27,9 @@ public class Book extends Item
 
     public int getYearOfPublishing() {
         return yearOfPublishing;
+    }
+
+    public int getBookId() {
+        return bookId;
     }
 }
