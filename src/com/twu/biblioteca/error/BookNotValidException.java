@@ -1,4 +1,4 @@
-package com.twu.biblioteca.core;
+package com.twu.biblioteca.error;
 
 /**
  * Created by dianadevasia on 25/02/15.

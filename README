@@ -24,7 +24,7 @@
     java -jar <path-to-your-project>/build/libs<name-of-the-jar>
 
 -> When the project runs the menu options are displayed.
-    1. displaying list of books.
+    1. displaying listOfItemsPresentInLibrary of books.
     2. checkout a book.
     3. return the book checked out.
     0. to quit the application.

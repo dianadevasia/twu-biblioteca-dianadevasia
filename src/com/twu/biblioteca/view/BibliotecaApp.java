@@ -1,21 +1,25 @@
 package com.twu.biblioteca.view;
 
-import com.twu.biblioteca.core.Book;
-import com.twu.biblioteca.core.Customer;
-import com.twu.biblioteca.core.Library;
-
-import java.io.*;
+import com.twu.biblioteca.core.*;
+import com.twu.biblioteca.data.SeedData;
+import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class BibliotecaApp {
-
+public class BibliotecaApp
+{
+    public static List<Customer> customerList = new ArrayList<Customer>();
     private InputOutputDevice ioDevice;
-    private MenuAction menuSelected;
+    public Menu menu;
+    private Customer loggedInCustomer=null;
 
-
-    private void setMenuSelected(MenuAction menuSelected) {
-        this.menuSelected = menuSelected;
+    static{
+    customerList.add(new Customer("111-1111", "aaaa","roo","roo@gmail.com",1111111111));
+    customerList.add(new Customer("222-2222", "bbbb","koo","koo@gmail.com",1111111112));
+    customerList.add(new Customer("333-3333", "cccc","foo","foo@gmail.com",1111111113));
+    customerList.add(new Customer("444-4444", "dddd","poo","poo@gmail.com",1111111114));
     }
 
     public BibliotecaApp(InputOutputDevice ioDevice)
@@ -27,75 +31,59 @@ public class BibliotecaApp {
         this.ioDevice = ioDevice;
     }
 
-    public static ArrayList<Book> getBookList() {
-        ArrayList<Book> bookList = new ArrayList<Book>();
-        bookList.add(new Book("Learning Python", "Mark Lutz", 2009));
-        bookList.add(new Book("HeadFirst Java", "Kathy Sierra", 2005));
-        bookList.add(new Book("Test Driven Development", "Kent Beck", 2003));
-        bookList.add(new Book("Java (TM) Design Patterns", "James W Cooper", 2000));
-        return bookList;
+    public Menu getMenu() {
+        return menu;
     }
 
+    public void setMenu(List<MenuAction> menu) {
+        this.menu = new Menu(menu);
+    }
+
+    public Customer getLoggedInCustomer() {
+        return loggedInCustomer;
+    }
+
+    public void setLoggedInCustomer(Customer loggedInCustomer) {
+        this.loggedInCustomer = loggedInCustomer;
+    }
+
+    public InputOutputDevice getIoDevice() {
+        return ioDevice;
+    }
 
     public static void main(String[] args) throws IOException
     {
-        ArrayList<Book> bookList = getBookList();
-        Customer customer = new Customer("diana");
-        Library library = new Library(bookList);
+
+        SeedData seedDataInstance = new SeedData();
+        Library<Book> bookLibrary = new Library<Book>(seedDataInstance.allBooks());
+        Library<Movie> movieLibrary = new Library<Movie>(seedDataInstance.allMovies());
 
         InputOutputDevice consoleIODevice = new ConsoleInputOutputDevice();
         BibliotecaApp bibliotecaApp = new BibliotecaApp(consoleIODevice);
 
-        int optionChosen = 0;
+        bibliotecaApp.menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
+
+        int optionChosen;
         bibliotecaApp.ioDevice.writeOutput("Welcome to The Bangalore Public Library");
 
         do {
-            bibliotecaApp.showMenu();
-            optionChosen=Integer.parseInt(bibliotecaApp.ioDevice.readInput());
+            bibliotecaApp.getMenu().showMenu(bibliotecaApp.ioDevice);
 
-            bibliotecaApp.performActions(optionChosen, library, customer);
+            optionChosen = bibliotecaApp.ioDevice.readInt("Please enter a numeric value for menu id.");
+
+            try {
+                bibliotecaApp.menu.performActions(optionChosen,bibliotecaApp);
+                System.out.println(bibliotecaApp.loggedInCustomer);
+            }
+            catch (InvalidMenuOptionChoosen e){
+                bibliotecaApp.ioDevice.writeOutput("You have entered a wrong input.\nSelect a valid option from the menu list to go forward!");
+            }
 
         } while (optionChosen != 0);
-
-
-    }
-
-    public void showMenu()
-    {
-        ioDevice.writeOutput("1. List Books\n2. Checkout Books\n3. Return Books\n0. Quit");
-    }
-
-    public void performActions(int optionChosen,Library library, Customer customer)throws IOException
-    {
-        switch (optionChosen) {
-
-            case 0:
-                setMenuSelected(new QuitMenuActionImpl());
-                menuSelected.doAction(library,customer,ioDevice);
-                break;
-            case 1:
-                setMenuSelected(new PrintBookMenuActionImpl());
-                menuSelected.doAction(library, customer, ioDevice);
-                break;
-            case 2:
-                setMenuSelected(new PrintBookMenuActionImpl());
-                setMenuSelected(new CheckoutMenuActionImpl());
-                menuSelected.doAction(library, customer, ioDevice);
-                break;
-            case 3:
-                setMenuSelected(new ReturnBookMenuActionImpl());
-                menuSelected.doAction(library, customer, ioDevice);
-                break;
-
-            default:
-                ioDevice.writeOutput("You have entered a wrong input.\nSelect a valid option from the menu list to go forward!");
-                break;
-        }
     }
 
     public void getInputFromUserAndWriteSomething() throws IOException {
         String input = ioDevice.readInput();
         ioDevice.writeOutput(input + " Appended");
     }
-
 }

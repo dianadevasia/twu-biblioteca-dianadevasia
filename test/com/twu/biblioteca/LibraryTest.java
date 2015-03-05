@@ -1,13 +1,17 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.core.Book;
-import com.twu.biblioteca.core.BookNotValidException;
+import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.core.Library;
+import com.twu.biblioteca.error.BookNotValidException;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 public class LibraryTest {
@@ -15,35 +19,41 @@ public class LibraryTest {
     @Test(expected=BookNotValidException.class)
     public void testValidateBookId()
     {
-        ArrayList<Book> booklist = new ArrayList<Book>();
-        booklist.add(new Book("Learning Python", "Mark Lutz", 2009));
-        Library library = new Library(booklist);
+        SeedData instance= new SeedData();
+        List<Book> booklist = instance.allBooks();
+        Library<Book> library = new Library<Book>(booklist);
 
-        library.validateBookId(-1);
+
+        library.validateId(-1);
 
         fail("Did not get exception");
     }
 
-
     @Test
     public void testRemoveBookFromListSuccessfully()
     {
-        ArrayList<Book> booklist = new ArrayList<Book>();
-        booklist.add(new Book("Learning Python", "Mark Lutz", 2009));
-        Library library = new Library(booklist);
+        SeedData instance= new SeedData();
+        List<Book> booklist = instance.allBooks();
+        Library<Book> library = new Library<Book>(booklist);
+        Book bookToRemove=booklist.get(0);
 
-        Book expected=library.removeBookFromList(1);
+        Customer customer = new Customer("111-1111","aabcd");
 
-        assertEquals("Learning Python", expected.getBookName());
+        library.removeItemFromList(1, customer);
+        assertThat(library.getListOfItemsPresentInLibrary(), not(hasItem(bookToRemove)));
     }
 
     @Test(expected = BookNotValidException.class)
     public void testRemoveInvalidBookFromList()
     {
-        ArrayList<Book> booklist = new ArrayList<Book>();
-        booklist.add(new Book("Learning Python", "Mark Lutz", 2009));
-        Library library = new Library(booklist);
+        SeedData instance= new SeedData();
+        List<Book> booklist = instance.allBooks();
+        Library<Book> library = new Library<Book>(booklist);
 
-        library.removeBookFromList(2);
+        Customer customer = new Customer("111-1111","aabcd");
+
+        library.removeItemFromList(10, customer);
+
+        fail("Did not get exception");
     }
 }

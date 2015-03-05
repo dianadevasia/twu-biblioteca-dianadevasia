@@ -1,41 +1,47 @@
 package com.twu.biblioteca.core;
 
+import com.twu.biblioteca.error.BookNotValidException;
+import com.twu.biblioteca.error.MovieNotValidException;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by dianadevasia on 25/02/15.
  */
-public class Library
+public class Library <T extends Item>
 {
-    private ArrayList<Book> bookList;
+    private List<T> listOfItemsPresentInLibrary = new ArrayList<T>();
+    private Map<T,Customer> listOfItemsBorrowedWithCustomerInformation = new ConcurrentHashMap<T,Customer>();
 
-    public ArrayList<Book> getBookList() {
-        return bookList;
+    public Library(List<T> listOfItemsPresentInLibrary) {
+        this.listOfItemsPresentInLibrary = listOfItemsPresentInLibrary;
     }
 
-
-    public Library(ArrayList<Book> bookList)
-    {
-        this.bookList = bookList;
+    public List<T> getListOfItemsPresentInLibrary() {
+        return listOfItemsPresentInLibrary;
     }
 
-    public void validateBookId(int optionChosen)
-    {
-        int bookLimitCrossed = bookList.size() + 1;
-        if(optionChosen<1 || optionChosen >= bookLimitCrossed)
-            throw new BookNotValidException();
+    public void validateId(int optionChosen) {
+        int limitCrossed = listOfItemsPresentInLibrary.size() + 1;
+        if (optionChosen < 1 || optionChosen >= limitCrossed)
+            if(listOfItemsPresentInLibrary.get(0) instanceof Book)
+                throw new BookNotValidException();
+            else
+                throw new MovieNotValidException();
     }
 
-    public Book removeBookFromList(int optionChosen)
-    {
-        validateBookId(optionChosen);
-        Book removedBook = bookList.get(optionChosen-1);
-        bookList.remove(optionChosen-1);
-        return removedBook;
-
+    public void removeItemFromList(int optionChosen, Customer customer) {
+        validateId(optionChosen);
+        T removedItem = listOfItemsPresentInLibrary.get(optionChosen - 1);
+        listOfItemsPresentInLibrary.remove(optionChosen - 1);
+//        listOfItemsBorrowedWithCustomerInformation.put(removedItem,customer);
+        customer.checkOutItem(removedItem);
     }
 
-    public void addBookToRepository(Book returnedBook) {
-        bookList.add(returnedBook);
+    public void addItemToRepository(T returnedItem) {
+        listOfItemsPresentInLibrary.add(returnedItem);
     }
 }
