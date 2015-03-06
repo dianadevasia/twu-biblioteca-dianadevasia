@@ -51,7 +51,7 @@ public class Customer
     }
 
     public void checkOutItem(int removedItemId, Library library) {
-      Item removedItem = library.removeItemFromList(removedItemId);
+      Item removedItem = library.removeItemFromList(removedItemId,this);
         borrowedList.add(removedItem);
     }
 

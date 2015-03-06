@@ -1,6 +1,7 @@
 package com.twu.biblioteca.view;
 
 import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.Librarian;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 
 import java.io.IOException;
@@ -12,15 +13,19 @@ import java.util.Map;
 public class BibliotecaApp
 {
     public static List<Customer> customerList = new ArrayList<Customer>();
+    static Librarian librarian;
     private InputOutputDevice ioDevice;
     public Menu menu;
     private Customer loggedInCustomer=null;
+    private boolean loggedInLibrarian=false;
 
     static{
     customerList.add(new Customer("111-1111", "aaaa","roo","roo@gmail.com",1111111111));
     customerList.add(new Customer("222-2222", "bbbb","koo","koo@gmail.com",1111111112));
     customerList.add(new Customer("333-3333", "cccc","foo","foo@gmail.com",1111111113));
     customerList.add(new Customer("444-4444", "dddd","poo","poo@gmail.com",1111111114));
+    librarian=new Librarian("admin","admin");
+
     }
 
     public BibliotecaApp(InputOutputDevice ioDevice)
@@ -42,6 +47,14 @@ public class BibliotecaApp
 
     public InputOutputDevice getIoDevice() {
         return ioDevice;
+    }
+
+    public boolean getLoggedInLibrarian() {
+        return loggedInLibrarian;
+    }
+
+    public void setLoggedInLibrarian(boolean loggedInLibrarian) {
+        this.loggedInLibrarian = loggedInLibrarian;
     }
 
     public void setLoggedInCustomer(Customer loggedInCustomer) {
@@ -76,9 +89,10 @@ public class BibliotecaApp
         int quitMenuCode = getMenuCodeForQuitMenu(menu.menuItems);
         int optionChosenForMenuSelection;
         do {
-            menu.showMenu(ioDevice);
+            menu.showMenu(this);
 
             optionChosenForMenuSelection = readInteger();
+            optionChosenForMenuSelection--;
 
             try {
                 menu.performActions(optionChosenForMenuSelection,this);

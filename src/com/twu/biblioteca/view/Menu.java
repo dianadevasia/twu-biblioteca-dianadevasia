@@ -1,5 +1,6 @@
 package com.twu.biblioteca.view;
 
+import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 
 import java.io.IOException;
@@ -20,10 +21,18 @@ public class Menu {
             this.menuItems.put(i, menuItems.get(i));
     }
 
-    public void showMenu(InputOutputDevice ioDevice){
-        for(int i=0;i< menuItems.size();i++)
+    public void showMenu(BibliotecaApp bibliotecaApp){
+        InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
+        Customer customer = bibliotecaApp.getLoggedInCustomer();
+
+        for(Map.Entry<Integer,MenuAction> each : menuItems.entrySet())
         {
-            ioDevice.writeOutput("%d\t%s",i,this.menuItems.get(i).printMenu());
+            if(each.getKey()==8)
+                if(customer!= null)
+                    ioDevice.writeOutput("%d\t%s",each.getKey()+1,each.getValue().printMenu());
+
+            ioDevice.writeOutput("%d\t%s",each.getKey()+1,each.getValue().printMenu());
+
         }
     }
 

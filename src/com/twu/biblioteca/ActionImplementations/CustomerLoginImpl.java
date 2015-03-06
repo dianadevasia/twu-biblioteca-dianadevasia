@@ -37,7 +37,7 @@ public class CustomerLoginImpl implements MenuAction
     }
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp){
+    public void doAction(BibliotecaApp bibliotecaApp) throws IOException {
 
         Customer customer =bibliotecaApp.getLoggedInCustomer();
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
@@ -88,6 +88,7 @@ public class CustomerLoginImpl implements MenuAction
 
     public String printMenu()
     {
-        return menuAction.printMenu();
+//        return menuAction.printMenu();
+        return "Customer Login";
     }
 }

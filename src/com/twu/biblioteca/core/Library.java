@@ -24,6 +24,10 @@ public class Library <T extends Item>
         return listOfItemsPresentInLibrary;
     }
 
+    public Map<T, Customer> getListOfItemsBorrowedWithCustomerInformation() {
+        return listOfItemsBorrowedWithCustomerInformation;
+    }
+
     public void validateId(int optionChosen) {
         int limitCrossed = listOfItemsPresentInLibrary.size() + 1;
         if (optionChosen < 1 || optionChosen >= limitCrossed) {
@@ -34,22 +38,25 @@ public class Library <T extends Item>
         }
     }
 
-    public Item removeItemFromList(int optionChosen) {
+    public Item removeItemFromList(int optionChosen,Customer customer) {
         validateId(optionChosen);
         T removedItem = listOfItemsPresentInLibrary.get(optionChosen - 1);
         listOfItemsPresentInLibrary.remove(optionChosen - 1);
-//        listOfItemsBorrowedWithCustomerInformation.put(removedItem,customer);
+        listOfItemsBorrowedWithCustomerInformation.put(removedItem,customer);
         return removedItem;
     }
 
-
-
     public void addItemToRepository(T returnedItem) {
         listOfItemsPresentInLibrary.add(returnedItem);
+        listOfItemsBorrowedWithCustomerInformation.remove(returnedItem);
     }
 
-    public boolean hasItems()
+    public boolean hasLstOfItemsPresentInLibrary()
     {
          return (listOfItemsPresentInLibrary.size()!=0);
+    }
+
+    public boolean hasBorrowedListInformation() {
+        return (listOfItemsBorrowedWithCustomerInformation.size() != 0);
     }
 }

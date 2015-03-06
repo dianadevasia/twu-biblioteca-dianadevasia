@@ -21,12 +21,12 @@ public class PrintMoviesAvailableImpl implements MenuAction<Movie> {
     {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
-        if(!movieLibrary.hasItems())
+        if(!movieLibrary.hasLstOfItemsPresentInLibrary())
         {
             ioDevice.writeOutput("Sorry.. No movies left to checkout.");
         }
 
-        if(movieLibrary.hasItems())
+        if(movieLibrary.hasLstOfItemsPresentInLibrary())
         {
             ioDevice.writeOutput("The list of books you can choose from are:\n");
 

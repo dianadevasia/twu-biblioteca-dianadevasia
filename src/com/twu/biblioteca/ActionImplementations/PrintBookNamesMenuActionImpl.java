@@ -21,10 +21,10 @@ public class PrintBookNamesMenuActionImpl implements MenuAction<Book> {
     public void doAction(BibliotecaApp bibliotecaApp) {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
-        if (!bookLibrary.hasItems())
+        if (!bookLibrary.hasLstOfItemsPresentInLibrary())
             ioDevice.writeOutput("Sorry.. No books left to checkout.");
 
-        if (bookLibrary.hasItems()) {
+        if (bookLibrary.hasLstOfItemsPresentInLibrary()) {
             ioDevice.writeOutput("The list of books You can choose from are:\n");
 
             ioDevice.writeOutput("|------------------------------------------------------------------------------------|");
