@@ -1,4 +1,4 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu;
 
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Library;
@@ -18,7 +18,7 @@ public class PrintBookNamesMenuActionImpl implements MenuAction<Book> {
     }
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp) {
+    public int doAction(BibliotecaApp bibliotecaApp) {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
         if (!bookLibrary.hasLstOfItemsPresentInLibrary())
@@ -35,6 +35,7 @@ public class PrintBookNamesMenuActionImpl implements MenuAction<Book> {
             }
             ioDevice.writeOutput("");
         }
+        return 0;
     }
 
     public String printMenu() {

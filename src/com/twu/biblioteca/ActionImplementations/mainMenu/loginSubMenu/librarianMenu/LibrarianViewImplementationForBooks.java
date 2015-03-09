@@ -1,4 +1,4 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.librarianMenu;
 
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
@@ -21,7 +21,7 @@ public class LibrarianViewImplementationForBooks implements MenuAction {
 
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp) {
+    public int doAction(BibliotecaApp bibliotecaApp) {
 
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
         if(!booklibrary.hasBorrowedListInformation()) {
@@ -41,7 +41,7 @@ public class LibrarianViewImplementationForBooks implements MenuAction {
             }
             ioDevice.writeOutput("");
         }
-
+        return 0;
     }
 
     @Override

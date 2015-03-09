@@ -10,7 +10,7 @@ import java.io.IOException;
 public interface MenuAction<T extends Item> {
 
 //    public void doAction(Library<T> library, Customer customer, InputOutputDevice ioDevice);
-    public void doAction(BibliotecaApp bibliotecaApp) throws IOException;
+    public int doAction(BibliotecaApp bibliotecaApp) throws IOException;
     public String printMenu();
 
 }

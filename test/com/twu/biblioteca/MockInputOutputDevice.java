@@ -53,7 +53,4 @@ public class MockInputOutputDevice implements InputOutputDevice {
     public String getActualWrittenOutput(){
         return outputmsg;
     }
-
-
-
 }

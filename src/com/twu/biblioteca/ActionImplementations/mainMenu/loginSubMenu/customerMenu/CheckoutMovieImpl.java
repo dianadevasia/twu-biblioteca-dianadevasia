@@ -1,5 +1,6 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu;
 
+import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.core.Movie;
@@ -22,10 +23,10 @@ public class CheckoutMovieImpl implements MenuAction {
     }
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp)
+    public int doAction(BibliotecaApp bibliotecaApp)
     {
             InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
-            Customer customer = bibliotecaApp.getLoggedInCustomer();
+            Customer customer = (Customer) LoginImpl.getUser();
             ioDevice.writeOutput("Enter the movie id you want to checkout from the above list of movies.");
             try {
                 int movieId = ioDevice.readInt("Please enter a valid numeric movie id.");
@@ -37,6 +38,7 @@ public class CheckoutMovieImpl implements MenuAction {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        return 0;
     }
 
     public String printMenu(){

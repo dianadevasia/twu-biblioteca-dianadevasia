@@ -1,4 +1,4 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu;
 
 import com.twu.biblioteca.core.Item;
 import com.twu.biblioteca.view.BibliotecaApp;
@@ -11,9 +11,10 @@ import com.twu.biblioteca.view.MenuAction;
 public class QuitMenuActionImpl implements MenuAction<Item> {
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp ) {
+    public int doAction(BibliotecaApp bibliotecaApp) {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
         ioDevice.writeOutput("Exiting!!! ");
+        return 1;
     }
 
     public String printMenu()

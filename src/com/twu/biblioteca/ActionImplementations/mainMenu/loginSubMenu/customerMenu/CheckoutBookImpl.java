@@ -1,5 +1,6 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu;
 
+import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
@@ -22,10 +23,10 @@ public class CheckoutBookImpl implements MenuAction<Book> {
     }
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp)
+    public int doAction(BibliotecaApp bibliotecaApp)
     {
         InputOutputDevice ioDevice=bibliotecaApp.getIoDevice();
-        Customer customer = bibliotecaApp.getLoggedInCustomer();
+        Customer customer = (Customer)LoginImpl.getUser();
         ioDevice.writeOutput("Enter the Book id you want to checkout from the above list of Books.");
         try
         {
@@ -43,6 +44,7 @@ public class CheckoutBookImpl implements MenuAction<Book> {
         catch (IOException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     public String printMenu(){

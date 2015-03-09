@@ -18,12 +18,12 @@ public class CustomerTest {
 
     @Test
     public void testCheckOutBook() {
-        Customer customer = new Customer("111-1111","aabcd");
         List<Book> bookList = new ArrayList<Book>();
         Book checkedOutBook = new Book(1, "Xtreme Programming", "Kent Beck", 2000);
         bookList.add(checkedOutBook);
 
         Library<Book> bookLibrary = new Library<Book>(bookList);
+        Customer customer = new Customer("111-1111","aabcd",bookLibrary,null);
         customer.checkOutItem(1,bookLibrary);
 
         assertThat(customer.getBorrowedList(), hasItem(checkedOutBook));
@@ -31,12 +31,12 @@ public class CustomerTest {
 
     @Test
     public void testReturnValidBook() {
-        Customer customer = new Customer("111-1111","aabcd");
         List<Book> bookList = new ArrayList<Book>();
         Book returnedBook = new Book(1, "Xtreme Programming", "Kent Beck", 2000);
         bookList.add(returnedBook);
 
         Library<Book> bookLibrary = new Library<Book>(bookList);
+        Customer customer = new Customer("111-1111","aabcd",bookLibrary,null);
         customer.checkOutItem(1,bookLibrary);
 
         customer.returnItem("Xtreme Programming", bookLibrary);
@@ -45,12 +45,12 @@ public class CustomerTest {
 
     @Test(expected = BookNotValidException.class)
     public void testReturnInValidBook() {
-        Customer customer = new Customer("111-1111","aabcd");
         List<Book> bookList = new ArrayList<Book>();
         Book returnedBook = new Book(1, "Xtreme Programming", "Kent Beck", 2000);
         bookList.add(returnedBook);
 
         Library<Book> bookLibrary = new Library<Book>(bookList);
+        Customer customer = new Customer("111-1111","aabcd",bookLibrary,null);
         customer.checkOutItem(1,bookLibrary);
 
         customer.returnItem("Xtreme Programming2", bookLibrary);

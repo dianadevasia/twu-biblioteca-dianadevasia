@@ -1,4 +1,4 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu;
 
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.core.Movie;
@@ -17,7 +17,7 @@ public class PrintMoviesAvailableImpl implements MenuAction<Movie> {
         this.movieLibrary=movieLibrary;
     }
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp)
+    public int doAction(BibliotecaApp bibliotecaApp)
     {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
@@ -37,6 +37,7 @@ public class PrintMoviesAvailableImpl implements MenuAction<Movie> {
                 ioDevice.writeOutput("|%-10d|%-30s|%-30s|%-20d|%d\n", each.getMovieId(), each.getName(), each.getDirector(), each.getMovieYear(), each.getMovieRating());
             ioDevice.writeOutput("");
         }
+        return 0;
     }
     public String printMenu(){
         return "Print Movies Available.";

@@ -1,7 +1,7 @@
 package com.twu.biblioteca.core;
 
-import com.twu.biblioteca.ActionImplementations.*;
-import com.twu.biblioteca.view.Menu;
+import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
+import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
 import com.twu.biblioteca.view.MenuAction;
 
 import java.util.ArrayList;
@@ -14,29 +14,30 @@ public class MenuItemGenerator
 {
     public static List<MenuAction> createMenu(Library<Book> bookLibrary,Library<Movie> movieLibrary)
     {
-        List<MenuAction>customerMenus = new ArrayList<MenuAction>();
-        customerMenus.add(new CheckoutBookImpl(bookLibrary));
-        customerMenus.add(new ReturnBookImpl(bookLibrary));
-        customerMenus.add(new CheckoutMovieImpl(movieLibrary));
-        customerMenus.add(new PrintCustomerDetailsImpl());
+//        List<MenuAction> customerMenus = new ArrayList<MenuAction>();
+//        customerMenus.add(new PrintBookNamesMenuActionImpl(bookLibrary));
+//        customerMenus.add(new CheckoutBookImpl(bookLibrary));
+//        customerMenus.add(new ReturnBookImpl(bookLibrary));
+//        customerMenus.add(new PrintMoviesAvailableImpl(movieLibrary));
+//        customerMenus.add(new CheckoutMovieImpl(movieLibrary));
+//        customerMenus.add(new PrintCustomerDetailsImpl());
+//        customerMenus.add(new LogoutCustomerImpl());
+//        customerMenus.add(new LeaveMenuAndGoBackImpl());
 
+//        List<MenuAction> adminitems = new ArrayList<MenuAction>();
+//        adminitems.add(new LibrarianViewImplementationForBooks(bookLibrary));
+//        adminitems.add(new LibrarianViewImplementationForMovies(movieLibrary));
+//        adminitems.add(new LogOutLibrarianImpl());
+//        adminitems.add(new LeaveMenuAndGoBackImpl());
 
-        List<MenuAction>adminitems = new ArrayList<MenuAction>();
-        adminitems.add(new LibrarianViewImplementationForBooks(bookLibrary));
-        adminitems.add(new LibrarianViewImplementationForMovies(movieLibrary));
-        adminitems.add(new LeaveMenuAndGoBackImpl());
-
-
-        List<MenuAction>loginItems = new ArrayList<MenuAction>();
-        loginItems.add(new LibrarianLoginImpl(new AdminOptionsImpl(new Menu(adminitems))));
-        loginItems.add(new CustomerLoginImpl(new Menu(customerMenus)));
-        loginItems.add(new LeaveMenuAndGoBackImpl());
+//        List<MenuAction> loginItems = new ArrayList<MenuAction>();
+//        loginItems.add(new LibrarianLoginImpl(new Menu(adminitems)));
+//        loginItems.add(new CustomerLoginImpl(new Menu(customerMenus)));
+//        loginItems.add(new LeaveMenuAndGoBackImpl());
 
         List<MenuAction> mainMenuItems=new ArrayList<MenuAction>();
+        mainMenuItems.add(new LoginImpl());
         mainMenuItems.add(new QuitMenuActionImpl());
-        mainMenuItems.add(new PrintBookNamesMenuActionImpl(bookLibrary));
-        mainMenuItems.add(new PrintMoviesAvailableImpl(movieLibrary));
-        mainMenuItems.add(new LoginImpl(new Menu(loginItems)));
 
 
 //        menuitems.add(new QuitMenuActionImpl());

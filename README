@@ -24,13 +24,38 @@
     java -jar <path-to-your-project>/build/libs<name-of-the-jar>
 
 -> When the project runs the menu options are displayed.
-    1. displaying listOfItemsPresentInLibrary of books.
-    2. checkout a book.
-    3. return the book checked out.
-    0. to quit the application.
+    1. Login
+    2. Quit
 
--> Only books available in the library can be checked out.
+-> On selecting quit, the application exists.
+
+-> You can perform actions as a librarian or customer on selecting Login option and the choosing necessary options.
+
+-> To login as librarian the username & password is:
+    username: admin
+    password: admin
+
+-> To login as customer the username & password is:
+    username: 111-1111
+    password: aaaa
+
+-> On logging in as customer the options available are:
+    1. Logout
+    2. Displaying list of Books present in Library.
+    3. checkout a book.
+    4. return the book checked out.
+    5. Displaying List of movies available in the library.
+    6. Checkout a movie.
+
+-> Only books/movies available in the library can be checked out.
 
 -> Only the books checked out by a particular customer can be returned to the library.
 
--> For checkout & return of books, necessary validations are done to validate the correctness of the book.
+-> For checkout & return of books/movies, necessary validations are done to validate the correctness of the book/movie.
+
+-> On logging in as a librarian the options available are:
+    1. Logout
+    2. Displaying list of Books checked out from the Library with the customer details.
+    3. Displaying list of Movies checked out from the Library with the customer details.
+
+-> At any moment you can be logged in as a customer or a librarian.

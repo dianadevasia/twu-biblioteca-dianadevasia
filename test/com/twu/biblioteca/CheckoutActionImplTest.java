@@ -1,13 +1,13 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
+import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu.CheckoutBookImpl;
+import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu.CheckoutMovieImpl;
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.core.Movie;
 import com.twu.biblioteca.data.SeedData;
-import com.twu.biblioteca.ActionImplementations.CheckoutBookImpl;
-import com.twu.biblioteca.ActionImplementations.CheckoutMovieImpl;
-import com.twu.biblioteca.ActionImplementations.CustomerLoginImpl;
 import com.twu.biblioteca.view.BibliotecaApp;
 import org.junit.Test;
 
@@ -32,12 +32,10 @@ public class CheckoutActionImplTest {
         MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
         Book checkedOutBook = booklist.get(0);
-        Customer customer = new Customer("111-1111","aaaa");
-        bibliotecaApp.setLoggedInCustomer(customer);
-        CustomerLoginImpl customerImpl = new CustomerLoginImpl(new CheckoutBookImpl(bookLibrary));
-
-
-        customerImpl.getMenuAction().doAction(bibliotecaApp);
+        Customer customer = new Customer("111-1111","aaaa",bookLibrary,null);
+        CheckoutBookImpl checkoutBook = new CheckoutBookImpl(bookLibrary);
+        LoginImpl.setUser((Customer)customer);
+        checkoutBook.doAction(bibliotecaApp);
 
         assertThat(booklist, not(hasItem(checkedOutBook)));
     }
@@ -53,13 +51,13 @@ public class CheckoutActionImplTest {
 
         MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-        Customer customer = new Customer("111-1111","aaaa");
+        Customer customer = new Customer("111-1111","aaaa",bookLibrary,null);
         bibliotecaApp.setLoggedInCustomer(customer);
-        CustomerLoginImpl customerImpl = new CustomerLoginImpl(new CheckoutBookImpl(bookLibrary));
-
+        CheckoutBookImpl checkoutBook = new CheckoutBookImpl(bookLibrary);
+        LoginImpl.setUser((Customer)customer);
 
         String expected="That Book is not available so select a different book or fix the spelling error.";
-        customerImpl.getMenuAction().doAction(bibliotecaApp);
+        checkoutBook.doAction(bibliotecaApp);
 
         assertThat(ioDevice.getActualWrittenOutput(), is(expected));
 
@@ -69,18 +67,20 @@ public class CheckoutActionImplTest {
     public void testCheckOutValidMovie() throws Exception
     {
         List<Movie> movielist = new SeedData().allMovies();
-        Library<Movie> library = new Library<Movie>(movielist);
+        Library<Movie> movielibrary = new Library<Movie>(movielist);
 
         ArrayList<String> inputValuesToGiveToTest = new ArrayList<String>();
         inputValuesToGiveToTest.add("1");
         MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-        Customer customer = new Customer("111-1111","aaaa");
+        Customer customer = new Customer("111-1111","aaaa",null,movielibrary);
         bibliotecaApp.setLoggedInCustomer(customer);
         Movie checkedOutMovie = movielist.get(0);
-        CustomerLoginImpl customerLoginImpl = new CustomerLoginImpl(new CheckoutMovieImpl(library));
+        CheckoutMovieImpl checkoutMovie = new CheckoutMovieImpl(movielibrary);
+        LoginImpl.setUser((Customer)customer);
 
-        customerLoginImpl.getMenuAction().doAction(bibliotecaApp);
+        checkoutMovie.doAction(bibliotecaApp);
+
 
         assertThat(movielist, not(hasItem(checkedOutMovie)));
     }
@@ -89,18 +89,19 @@ public class CheckoutActionImplTest {
     public void testCheckOutInvalidMovie() throws IOException
     {
         List<Movie> movielist = new SeedData().allMovies();
-        Library<Movie> library = new Library<Movie>(movielist);
+        Library<Movie> movielibrary = new Library<Movie>(movielist);
 
         ArrayList<String> inputValuesToGiveToTest = new ArrayList<String>();
         inputValuesToGiveToTest.add("100");
         MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-        Customer customer = new Customer("111-1111","aaaa");
+        Customer customer = new Customer("111-1111","aaaa",null,movielibrary);
         bibliotecaApp.setLoggedInCustomer(customer);
-        CustomerLoginImpl customerLoginImpl = new CustomerLoginImpl(new CheckoutMovieImpl(library));
+        CheckoutMovieImpl checkoutMovie = new CheckoutMovieImpl(movielibrary);
+        LoginImpl.setUser((Customer)customer);
 
         String expected="That movie is not available so select a different movie or fix the spelling error.";
-        customerLoginImpl.getMenuAction().doAction(bibliotecaApp);
+        checkoutMovie.doAction(bibliotecaApp);
 
         assertThat(ioDevice.getActualWrittenOutput(), is(expected));
     }

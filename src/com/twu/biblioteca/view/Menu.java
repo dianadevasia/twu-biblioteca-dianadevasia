@@ -36,11 +36,11 @@ public class Menu {
         }
     }
 
-    public void performActions(int optionChosen,BibliotecaApp bibliotecaApp)throws IOException,InvalidMenuOptionChoosen
+    public int performActions(int optionChosen,BibliotecaApp bibliotecaApp)throws IOException,InvalidMenuOptionChoosen
     {
         if(menuItems.containsKey(optionChosen))
         {
-            menuItems.get(optionChosen).doAction(bibliotecaApp);
+            return menuItems.get(optionChosen).doAction(bibliotecaApp);
         }
         else
             throw new InvalidMenuOptionChoosen();

@@ -1,4 +1,4 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.librarianMenu;
 
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
@@ -21,7 +21,7 @@ public class LibrarianViewImplementationForMovies implements MenuAction {
     }
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp) {
+    public int doAction(BibliotecaApp bibliotecaApp) {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
         if(!movielibrary.hasBorrowedListInformation())
@@ -40,6 +40,7 @@ public class LibrarianViewImplementationForMovies implements MenuAction {
             }
             ioDevice.writeOutput("");
         }
+        return 0;
     }
 
     @Override

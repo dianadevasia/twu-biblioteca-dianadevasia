@@ -1,5 +1,6 @@
-package com.twu.biblioteca.ActionImplementations;
+package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu;
 
+import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
@@ -21,15 +22,17 @@ public class ReturnBookImpl implements MenuAction<Book> {
     }
 
     @Override
-    public void doAction(BibliotecaApp bibliotecaApp)
+    public int doAction(BibliotecaApp bibliotecaApp)
     {
-        Customer customer=bibliotecaApp.getLoggedInCustomer();
+        Customer customer = (Customer) LoginImpl.getUser();
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
         try
         {
             ioDevice.writeOutput("Enter the name of the item You want to return ");
             String bookToReturn = ioDevice.readInput();
-            customer.returnItem(bookToReturn,bookLibrary);
+
+            System.out.println(customer);
+            customer.returnItem(bookToReturn, bookLibrary);
             ioDevice.writeOutput("Thank you for returning.");
         }
         catch(BookNotValidException e)
@@ -39,6 +42,7 @@ public class ReturnBookImpl implements MenuAction<Book> {
         catch (IOException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     public String printMenu()

@@ -33,13 +33,13 @@ public class LibraryTest {
     {
         SeedData instance= new SeedData();
         List<Book> booklist = instance.allBooks();
-        Library<Book> library = new Library<Book>(booklist);
+        Library<Book> booklibrary = new Library<Book>(booklist);
         Book bookToRemove=booklist.get(0);
-        Customer customer = new Customer("111-1111","aabcd");
+        Customer customer = new Customer("111-1111","aabcd",booklibrary,null);
 
-        library.removeItemFromList(1,customer);
+        booklibrary.removeItemFromList(1, customer);
 
-        assertThat(library.getListOfItemsPresentInLibrary(), not(hasItem(bookToRemove)));
+        assertThat(booklibrary.getListOfItemsPresentInLibrary(), not(hasItem(bookToRemove)));
     }
 
     @Test(expected = BookNotValidException.class)
@@ -47,11 +47,11 @@ public class LibraryTest {
     {
         SeedData instance= new SeedData();
         List<Book> booklist = instance.allBooks();
-        Library<Book> library = new Library<Book>(booklist);
+        Library<Book> booklibrary = new Library<Book>(booklist);
 
-        Customer customer = new Customer("111-1111","aabcd");
+        Customer customer = new Customer("111-1111","aabcd",booklibrary,null);
 
-        library.removeItemFromList(10,customer);
+        booklibrary.removeItemFromList(10,customer);
 
         fail("Did not get exception");
     }

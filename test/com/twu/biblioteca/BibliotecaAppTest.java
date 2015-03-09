@@ -1,17 +1,17 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.ActionImplementations.CheckoutBookImpl;
-import com.twu.biblioteca.ActionImplementations.CustomerLoginImpl;
-import com.twu.biblioteca.ActionImplementations.QuitMenuActionImpl;
-import com.twu.biblioteca.ActionImplementations.ReturnBookImpl;
+import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
+import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.Librarian;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.MenuAction;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -46,82 +45,63 @@ public class BibliotecaAppTest {
 //        assertThat(ioDevice.getActualWrittenOutput(),is(expected));
 //    }
 
+
+
     @Test
-    public void testValidatePerformActionExistsOnInputValueZero() throws IOException
+    public void testValidatePerformActionForCheckoutBook() throws IOException
     {
+
+        List<String> input=new ArrayList<String>();
+        input.add("111-1111");
+        input.add("aaaa");
+        input.add("3");
+        input.add("1");
+        input.add("1");
+        MockInputOutputDevice ioDevice = new MockInputOutputDevice(input);
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
+
         SeedData instance= new SeedData();
         List<Book> booklist = instance.allBooks();
         Library<Book> bookLibrary = new Library<Book>(booklist);
 
-        MockInputOutputDevice ioDevice = new MockInputOutputDevice();
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-        int optionChosen=0;
+        ArrayList<Customer> customerArrayList = new ArrayList<Customer>();
+        customerArrayList.add(new Customer("111-1111", "aaaa", bookLibrary, null));
+        Main.customerList= customerArrayList;
+        Librarian librarian=new Librarian("admin","admin",null,null);
 
-        MenuAction quitmenu=new QuitMenuActionImpl();
-        List<MenuAction>menuActionList=new ArrayList<MenuAction>();
-        menuActionList.add(quitmenu);
-        bibliotecaApp.setMenu(menuActionList);
+        int expected =0;
+        LoginImpl menuAction = new LoginImpl();
+        int actualOutput = menuAction.doAction(bibliotecaApp);
 
-        Customer customer= bibliotecaApp.customerList.get(0);
-        System.out.println(bibliotecaApp.getMenu());
-
-        String expected = "Exiting!!! ";
-        bibliotecaApp.getMenu().performActions(optionChosen, bibliotecaApp);
-
-        assertThat(ioDevice.getActualWrittenOutput(), is(expected));
+        assertThat(actualOutput, is(expected));
     }
 
     @Test
-    public void testValidatePerformActionExistsForCheckoutBook() throws IOException
+    public void testValidatePerformActionForReturnOfBook() throws IOException
     {
-        ArrayList<String> inputValuesToGiveToTest = new ArrayList<String>();
-        inputValuesToGiveToTest.add("111-1111");
-        inputValuesToGiveToTest.add("aaaa");
-        inputValuesToGiveToTest.add("2");
-        MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-        SeedData instance= new SeedData();
-        List<Book> booklist = instance.allBooks();
-        Library<Book> bookLibrary = new Library<Book>(booklist);
-        int optionChosen=0;
+        List<String> input=new ArrayList<String>();
+            input.add("111-1111");
+            input.add("aaaa");
+            input.add("4");
+            input.add("HeadFirst Java");
+            input.add("1");
+            MockInputOutputDevice ioDevice = new MockInputOutputDevice(input);
+            BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
 
-        List<MenuAction>menuActionList=new ArrayList<MenuAction>();
-        menuActionList.add(new CustomerLoginImpl(new CheckoutBookImpl(bookLibrary)));
-        bibliotecaApp.setMenu(menuActionList);
+            SeedData instance= new SeedData();
+            List<Book> booklist = instance.allBooks();
+            Library<Book> bookLibrary = new Library<Book>(booklist);
 
+            ArrayList<Customer> customerArrayList = new ArrayList<Customer>();
+            customerArrayList.add(new Customer("111-1111", "aaaa", bookLibrary, null));
+            Main.customerList= customerArrayList;
+            Librarian librarian=new Librarian("admin","admin",null,null);
 
-        String expected = "Thank you! Enjoy the Book.";
+            int expected =0;
+            LoginImpl menuAction = new LoginImpl();
+            int actualOutput = menuAction.doAction(bibliotecaApp);
 
-        bibliotecaApp.getMenu().performActions(optionChosen, bibliotecaApp);
-
-        assertThat(ioDevice.getActualWrittenOutput(), is(expected));
-    }
-
-    @Test
-    public void testValidatePerformActionExistsForReturnOfBook() throws IOException
-    {
-        List<String> inputValuesToGiveToTest = new ArrayList<String>();
-        inputValuesToGiveToTest.add("111-1111");
-        inputValuesToGiveToTest.add("aaaa");
-        inputValuesToGiveToTest.add("Learning Python");
-        MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-        SeedData instance= new SeedData();
-        List<Book> booklist = instance.allBooks();
-        Library<Book> bookLibrary = new Library<Book>(booklist);
-        Customer customer= bibliotecaApp.customerList.get(0);
-        customer.checkOutItem(booklist.get(0).getBookId(),bookLibrary);
-        int optionChosen=0;
-
-        List<MenuAction>menuActionList=new ArrayList<MenuAction>();
-        menuActionList.add(new CustomerLoginImpl(new ReturnBookImpl(bookLibrary)));
-        bibliotecaApp.setMenu(menuActionList);
-
-        String expected = "Thank you for returning.";
-
-        bibliotecaApp.getMenu().performActions(optionChosen, bibliotecaApp);
-
-        assertThat(ioDevice.getActualWrittenOutput(), is(expected));
+            assertThat(actualOutput, is(expected));
     }
 
     @Test(expected = InvalidMenuOptionChoosen.class)
@@ -143,38 +123,8 @@ public class BibliotecaAppTest {
         assertThat(ioDevice.getActualWrittenOutput(), is(expected));
     }
 
-    @Test
-    public void testCustomerLoginSuccess() throws IOException {
-        List<String>input=new ArrayList<String>();
-        input.add("111-1111");
-        input.add("aaaa");
-        MockInputOutputDevice ioDevice = new MockInputOutputDevice(input);
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-
-        String expected ="Logged In successfully!!!";
-        MenuAction menuAction = new CustomerLoginImpl(new DummyTestAction());
-        menuAction.doAction(bibliotecaApp);
-
-        assertEquals(ioDevice.getActualWrittenOutput(),expected);
-    }
-
-    @Test
-    public void testCustomerLoginFailure() throws IOException {
-        List<String> input=new ArrayList<String>();
-        input.add("111-1");
-        input.add("aaaa");
-        input.add("n");
-        MockInputOutputDevice ioDevice = new MockInputOutputDevice(input);
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-        String expected="Do you want to try again? (y/Y)";
-
-        MenuAction menuAction = new CustomerLoginImpl();
-        menuAction.doAction(bibliotecaApp);
-
-        assertEquals(ioDevice.getActualWrittenOutput(),expected);
-    }
-
-    @Test
+    /* Used for demoing use of mock. Ignore */
+    @Ignore
     public void testIfMock() throws IOException {
         InputOutputDevice device = mock(InputOutputDevice.class);
         final String userInputString = "My First Mock";
@@ -186,5 +136,4 @@ public class BibliotecaAppTest {
 
         verify(device).writeOutput(userInputString + " Appended");
     }
-
 }
