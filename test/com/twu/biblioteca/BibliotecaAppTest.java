@@ -2,11 +2,6 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
-import com.twu.biblioteca.core.Book;
-import com.twu.biblioteca.core.Customer;
-import com.twu.biblioteca.core.Librarian;
-import com.twu.biblioteca.core.Library;
-import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
@@ -60,15 +55,6 @@ public class BibliotecaAppTest {
         MockInputOutputDevice ioDevice = new MockInputOutputDevice(input);
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
 
-        SeedData instance= new SeedData();
-        List<Book> booklist = instance.allBooks();
-        Library<Book> bookLibrary = new Library<Book>(booklist);
-
-        ArrayList<Customer> customerArrayList = new ArrayList<Customer>();
-        customerArrayList.add(new Customer("111-1111", "aaaa", bookLibrary, null));
-        Main.customerList= customerArrayList;
-        Librarian librarian=new Librarian("admin","admin",null,null);
-
         int expected =0;
         LoginImpl menuAction = new LoginImpl();
         int actualOutput = menuAction.doAction(bibliotecaApp);
@@ -87,15 +73,6 @@ public class BibliotecaAppTest {
             input.add("1");
             MockInputOutputDevice ioDevice = new MockInputOutputDevice(input);
             BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-
-            SeedData instance= new SeedData();
-            List<Book> booklist = instance.allBooks();
-            Library<Book> bookLibrary = new Library<Book>(booklist);
-
-            ArrayList<Customer> customerArrayList = new ArrayList<Customer>();
-            customerArrayList.add(new Customer("111-1111", "aaaa", bookLibrary, null));
-            Main.customerList= customerArrayList;
-            Librarian librarian=new Librarian("admin","admin",null,null);
 
             int expected =0;
             LoginImpl menuAction = new LoginImpl();

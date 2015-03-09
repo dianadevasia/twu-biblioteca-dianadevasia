@@ -1,22 +1,39 @@
 package com.twu.biblioteca.view;
 
-import com.twu.biblioteca.Main;
-import com.twu.biblioteca.core.Customer;
+import com.twu.biblioteca.core.*;
+import com.twu.biblioteca.data.CustomerData;
+import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class BibliotecaApp
 {
+    SeedData seedDataInstance;
+    public Library<Book> bookLibrary;
+    public Library<Movie> movieLibrary;
+    public List<Customer> customerList;
+    public Librarian librarian=new Librarian("admin","admin",bookLibrary,movieLibrary);
+    public final static int QUITCODE=1;
+
+
+
     private InputOutputDevice ioDevice;
     public Menu menu;
+
     private Customer loggedInCustomer=null;
     private boolean loggedInLibrarian=false;
 
     public BibliotecaApp(InputOutputDevice ioDevice)
     {
+        seedDataInstance = new SeedData();
+        bookLibrary = new Library<Book>(seedDataInstance.allBooks());
+        movieLibrary = new Library<Movie>(seedDataInstance.allMovies());
+        customerList = new ArrayList<Customer>(new CustomerData(bookLibrary,movieLibrary).allCustomers());
+        menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
         this.ioDevice = ioDevice;
     }
 
@@ -36,12 +53,23 @@ public class BibliotecaApp
         return ioDevice;
     }
 
-    public boolean getLoggedInLibrarian() {
-        return loggedInLibrarian;
-    }
+//    public boolean getLoggedInLibrarian() {
+//        return loggedInLibrarian;
+//    }
 
-    public void setLoggedInLibrarian(boolean loggedInLibrarian) {
-        this.loggedInLibrarian = loggedInLibrarian;
+//    public void setLoggedInLibrarian(boolean loggedInLibrarian) {
+//        this.loggedInLibrarian = loggedInLibrarian;
+//    }
+
+
+    public static void main(String[] args) throws IOException
+    {
+        InputOutputDevice consoleIODevice = new ConsoleInputOutputDevice();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(consoleIODevice);
+
+        bibliotecaApp.welcomeMessage();
+
+        bibliotecaApp.menuProcessing();
     }
 
     public void setLoggedInCustomer(Customer loggedInCustomer) {
@@ -79,7 +107,7 @@ public class BibliotecaApp
                 ioDevice.writeOutput("Select a valid option from the menu list to go forward!");
             }
 
-        } while (outcomeOfMenuActionPerformed != Main.QUITCODE);
+        } while (outcomeOfMenuActionPerformed != BibliotecaApp.QUITCODE);
 
     }
 

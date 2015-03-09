@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.ActionImplementations.deletedFiles.CustomerLoginImpl;
 import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
@@ -17,16 +16,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class LoginImplTest {
-
-    @Test
-    public void testPrintMenu() throws Exception
-    {
-        CustomerLoginImpl customerLoginImpl = new CustomerLoginImpl();
-        String expected = "Customer Login";
-        String actual = customerLoginImpl.printMenu();
-
-        assertEquals(actual,expected);
-    }
 
 
     @Test
@@ -45,7 +34,7 @@ public class LoginImplTest {
 
         ArrayList<Customer> customerArrayList = new ArrayList<Customer>();
         customerArrayList.add(new Customer("111-1111", "aaaa", bookLibrary, null));
-        Main.customerList= customerArrayList;
+        bibliotecaApp.customerList= customerArrayList;
         Librarian librarian=new Librarian("admin","admin",null,null);
 
         LoginImpl menuAction = new LoginImpl();
@@ -70,7 +59,7 @@ public class LoginImplTest {
 
         ArrayList<Customer> customerArrayList = new ArrayList<Customer>();
         customerArrayList.add(new Customer("111-1111", "aaaa", bookLibrary, null));
-        Main.customerList= customerArrayList;
+        bibliotecaApp.customerList= customerArrayList;
         Librarian librarian=new Librarian("admin","admin",null,null);
 
 

@@ -2,7 +2,6 @@ package com.twu.biblioteca.core;
 
 import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.LogoutImpl;
 import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu.*;
-import com.twu.biblioteca.Main;
 import com.twu.biblioteca.error.BookNotValidException;
 import com.twu.biblioteca.view.Menu;
 import com.twu.biblioteca.view.MenuAction;
@@ -72,9 +71,9 @@ public class Customer extends User
         return authentication;
     }
 
-    public static Customer validateCustomer(String customerId, String customerPassword) {
+    public static Customer validateCustomer(String customerId, String customerPassword,List<Customer> customerList) {
         Customer validCustomer = null;
-        for (Customer eachCustomer : Main.customerList) {
+        for (Customer eachCustomer : customerList) {
             if (eachCustomer.getAuthenticationValues().getUserId().equals(customerId) && eachCustomer.getAuthenticationValues().getPassword().equals(customerPassword)) {
                 validCustomer = eachCustomer;
                 break;

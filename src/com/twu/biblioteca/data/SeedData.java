@@ -30,7 +30,6 @@ public class SeedData
 
     public List<Movie> allMovies(){
         return (movieList);
-//        return Collections.unmodifiableList(movieList);
      }
     public List<Book> allBooks(){
         return (bookList);

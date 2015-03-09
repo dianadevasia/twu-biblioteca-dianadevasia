@@ -1,6 +1,5 @@
 package com.twu.biblioteca.ActionImplementations.mainMenu;
 
-import com.twu.biblioteca.Main;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Librarian;
 import com.twu.biblioteca.core.User;
@@ -46,7 +45,7 @@ public class LoginImpl implements MenuAction {
                 ioDevice.writeOutput("Select a valid option from the menu list to go forward!");
             }
 
-        } while (outcomeOfMenuActionPerformed != Main.QUITCODE);
+        } while (outcomeOfMenuActionPerformed != BibliotecaApp.QUITCODE);
     }
 
 
@@ -58,9 +57,9 @@ public class LoginImpl implements MenuAction {
         String userPassword = ioDevice.readInput();
         Boolean isLibrarianLoggedIn = Librarian.validateLibrarian(userId, userPassword);
         if (isLibrarianLoggedIn)
-            return Main.librarian;
+            return bibliotecaApp.librarian;
         else {
-            Customer customer = Customer.validateCustomer(userId, userPassword);
+            Customer customer = Customer.validateCustomer(userId, userPassword,bibliotecaApp.customerList);
             return customer;
         }
     }
