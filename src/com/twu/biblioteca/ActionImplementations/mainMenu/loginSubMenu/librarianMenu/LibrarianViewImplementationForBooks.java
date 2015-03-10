@@ -3,7 +3,7 @@ package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.librarian
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
-import com.twu.biblioteca.view.BibliotecaApp;
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.MenuAction;
 
@@ -25,7 +25,6 @@ public class LibrarianViewImplementationForBooks implements MenuAction {
 
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
         if(!booklibrary.hasBorrowedListInformation()) {
-
             ioDevice.writeOutput("Sorry.. No books borrowed yet.");
         }
 

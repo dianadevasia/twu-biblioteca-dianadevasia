@@ -4,7 +4,7 @@ import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Librarian;
 import com.twu.biblioteca.core.User;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
-import com.twu.biblioteca.view.BibliotecaApp;
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.Menu;
 import com.twu.biblioteca.view.MenuAction;
@@ -89,7 +89,6 @@ public class LoginImpl implements MenuAction {
                     reply = "n";
                     ioDevice.writeOutput("Logged In successfully!!!");
                     setUser(user);
-                    System.out.println(this.user);
                     executeMenu(bibliotecaApp, this.user.roleAssociatedMenuList);
                 }
             }

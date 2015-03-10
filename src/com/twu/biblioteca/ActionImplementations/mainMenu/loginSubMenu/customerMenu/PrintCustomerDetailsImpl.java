@@ -3,7 +3,7 @@ package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerM
 import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Item;
-import com.twu.biblioteca.view.BibliotecaApp;
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.MenuAction;
 

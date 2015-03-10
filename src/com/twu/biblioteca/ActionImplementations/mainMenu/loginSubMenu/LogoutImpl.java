@@ -1,7 +1,7 @@
 package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu;
 
 import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
-import com.twu.biblioteca.view.BibliotecaApp;
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.MenuAction;
 
 /**

@@ -1,5 +1,6 @@
 package com.twu.biblioteca.view;
 
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 
@@ -27,9 +28,9 @@ public class Menu {
 
         for(Map.Entry<Integer,MenuAction> each : menuItems.entrySet())
         {
-            if(each.getKey()==8)
-                if(customer!= null)
-                    ioDevice.writeOutput("%d\t%s",each.getKey()+1,each.getValue().printMenu());
+//            if(each.getKey()==8)
+//                if(customer!= null)
+//                    ioDevice.writeOutput("%d\t%s",each.getKey()+1,each.getValue().printMenu());
 
             ioDevice.writeOutput("%d\t%s",each.getKey()+1,each.getValue().printMenu());
 

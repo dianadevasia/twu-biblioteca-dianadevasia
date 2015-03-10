@@ -1,7 +1,7 @@
 package com.twu.biblioteca.ActionImplementations.mainMenu;
 
 import com.twu.biblioteca.core.Item;
-import com.twu.biblioteca.view.BibliotecaApp;
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.MenuAction;
 
@@ -19,6 +19,6 @@ public class QuitMenuActionImpl implements MenuAction<Item> {
 
     public String printMenu()
     {
-        return "Quit.";
+        return "Quit";
     }
 }

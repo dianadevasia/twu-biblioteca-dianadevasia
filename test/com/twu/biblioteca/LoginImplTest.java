@@ -6,7 +6,6 @@ import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Librarian;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.data.SeedData;
-import com.twu.biblioteca.view.BibliotecaApp;
 import org.junit.Test;
 
 import java.io.IOException;

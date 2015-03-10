@@ -3,7 +3,6 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
-import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.MenuAction;
 import org.junit.Ignore;
@@ -32,10 +31,10 @@ public class BibliotecaAppTest {
 //        Library<Movie> movieLibrary = new Library<Movie>(movielist);
 //
 //
-//        bibliotecaApp.menu=new Menu(MenuItemGenerator.createMenu(bookLibrary,movieLibrary));
+//        bibliotecaApp.menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
 //
-//        String expected="0\tQuit\n1\tList Books\n2\tCheckout Books\n3\tReturn Books\n4\tList Movies\n5\tCheckout Movie\n6\tMy Information\n7\tLogout";
-//        bibliotecaApp.menu.showMenu(ioDevice);
+//        String expected="1\tLogin\n2\tQuit";
+//        bibliotecaApp.menu.showMenu(bibliotecaApp);
 //
 //        assertThat(ioDevice.getActualWrittenOutput(),is(expected));
 //    }

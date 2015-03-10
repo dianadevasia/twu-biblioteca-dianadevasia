@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
-import com.twu.biblioteca.view.BibliotecaApp;
 import com.twu.biblioteca.view.MenuAction;
 import org.junit.Test;
 

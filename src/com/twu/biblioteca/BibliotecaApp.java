@@ -1,9 +1,13 @@
-package com.twu.biblioteca.view;
+package com.twu.biblioteca;
 
 import com.twu.biblioteca.core.*;
 import com.twu.biblioteca.data.CustomerData;
 import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
+import com.twu.biblioteca.view.ConsoleInputOutputDevice;
+import com.twu.biblioteca.view.InputOutputDevice;
+import com.twu.biblioteca.view.Menu;
+import com.twu.biblioteca.view.MenuAction;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +20,7 @@ public class BibliotecaApp
     public Library<Book> bookLibrary;
     public Library<Movie> movieLibrary;
     public List<Customer> customerList;
-    public Librarian librarian=new Librarian("admin","admin",bookLibrary,movieLibrary);
+    public Librarian librarian;
     public final static int QUITCODE=1;
 
 
@@ -25,7 +29,6 @@ public class BibliotecaApp
     public Menu menu;
 
     private Customer loggedInCustomer=null;
-    private boolean loggedInLibrarian=false;
 
     public BibliotecaApp(InputOutputDevice ioDevice)
     {
@@ -33,6 +36,7 @@ public class BibliotecaApp
         bookLibrary = new Library<Book>(seedDataInstance.allBooks());
         movieLibrary = new Library<Movie>(seedDataInstance.allMovies());
         customerList = new ArrayList<Customer>(new CustomerData(bookLibrary,movieLibrary).allCustomers());
+        librarian=new Librarian("admin","admin",bookLibrary,movieLibrary);
         menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
         this.ioDevice = ioDevice;
     }
@@ -52,15 +56,6 @@ public class BibliotecaApp
     public InputOutputDevice getIoDevice() {
         return ioDevice;
     }
-
-//    public boolean getLoggedInLibrarian() {
-//        return loggedInLibrarian;
-//    }
-
-//    public void setLoggedInLibrarian(boolean loggedInLibrarian) {
-//        this.loggedInLibrarian = loggedInLibrarian;
-//    }
-
 
     public static void main(String[] args) throws IOException
     {

@@ -2,7 +2,7 @@ package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerM
 
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.core.Movie;
-import com.twu.biblioteca.view.BibliotecaApp;
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.MenuAction;
 
