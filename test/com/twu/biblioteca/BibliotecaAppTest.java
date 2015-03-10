@@ -2,8 +2,14 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
 import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
+import com.twu.biblioteca.core.Book;
+import com.twu.biblioteca.core.Library;
+import com.twu.biblioteca.core.MenuItemGenerator;
+import com.twu.biblioteca.core.Movie;
+import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 import com.twu.biblioteca.view.InputOutputDevice;
+import com.twu.biblioteca.view.Menu;
 import com.twu.biblioteca.view.MenuAction;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,26 +24,26 @@ import static org.mockito.Mockito.*;
 
 public class BibliotecaAppTest {
 
-//    @Test
-//    public void testShowMenu(){
-//        MockInputOutputDevice ioDevice = new MockInputOutputDevice();
-//        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
-//
-//        SeedData instance= new SeedData();
-//        List<Book> booklist = instance.allBooks();
-//        Library<Book> bookLibrary = new Library<Book>(booklist);
-//
-//        List<Movie> movielist = instance.allMovies();
-//        Library<Movie> movieLibrary = new Library<Movie>(movielist);
-//
-//
-//        bibliotecaApp.menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
-//
-//        String expected="1\tLogin\n2\tQuit";
-//        bibliotecaApp.menu.showMenu(bibliotecaApp);
-//
-//        assertThat(ioDevice.getActualWrittenOutput(),is(expected));
-//    }
+    @Test
+    public void testShowMenu(){
+        MockInputOutputDevice ioDevice = new MockInputOutputDevice();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
+
+        SeedData instance= new SeedData();
+        List<Book> booklist = instance.allBooks();
+        Library<Book> bookLibrary = new Library<Book>(booklist);
+
+        List<Movie> movielist = instance.allMovies();
+        Library<Movie> movieLibrary = new Library<Movie>(movielist);
+
+
+        bibliotecaApp.menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
+
+        String expected="2\tQuit";
+        bibliotecaApp.menu.showMenu(bibliotecaApp);
+
+        assertThat(ioDevice.getActualWrittenOutput(),is(expected));
+    }
 
 
 
