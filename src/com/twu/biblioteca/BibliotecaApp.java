@@ -49,10 +49,6 @@ public class BibliotecaApp
         return menu;
     }
 
-    public Customer getLoggedInCustomer() {
-        return loggedInCustomer;
-    }
-
     public InputOutputDevice getIoDevice() {
         return ioDevice;
     }
