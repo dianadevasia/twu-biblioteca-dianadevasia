@@ -1,10 +1,10 @@
 package com.twu.biblioteca.core;
 
-import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.LogoutImpl;
-import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu.*;
+import com.twu.biblioteca.view.MainMenu.loginSubMenu.Logout;
 import com.twu.biblioteca.error.BookNotValidException;
+import com.twu.biblioteca.view.MainMenu.loginSubMenu.customerMenu.*;
 import com.twu.biblioteca.view.Menu;
-import com.twu.biblioteca.view.MenuAction;
+import com.twu.biblioteca.view.IMenuAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +15,14 @@ import java.util.List;
 public class Customer extends User
 {
     public static Menu createCustomerMenu(Library bookLibrary,Library movieLibrary){
-        List<MenuAction> customerMenus = new ArrayList<MenuAction>();
-        customerMenus.add(new LogoutImpl());
-        customerMenus.add(new PrintBookNamesMenuActionImpl(bookLibrary));
-        customerMenus.add(new CheckoutBookImpl(bookLibrary));
-        customerMenus.add(new ReturnBookImpl(bookLibrary));
-        customerMenus.add(new PrintMoviesAvailableImpl(movieLibrary));
-        customerMenus.add(new CheckoutMovieImpl(movieLibrary));
-        customerMenus.add(new PrintCustomerDetailsImpl());
+        List<IMenuAction> customerMenus = new ArrayList<IMenuAction>();
+        customerMenus.add(new Logout());
+        customerMenus.add(new RenderBooksAvailable(bookLibrary));
+        customerMenus.add(new CheckoutBook(bookLibrary));
+        customerMenus.add(new ReturnBook(bookLibrary));
+        customerMenus.add(new RenderMoviesAvailable(movieLibrary));
+        customerMenus.add(new CheckoutMovie(movieLibrary));
+        customerMenus.add(new RenderCustomerDetails());
         Menu customerMenu = new Menu(customerMenus);
         return customerMenu;
     }
@@ -69,17 +69,6 @@ public class Customer extends User
 
     public Authentication getAuthenticationValues() {
         return authentication;
-    }
-
-    public static Customer validateCustomer(String customerId, String customerPassword,List<Customer> customerList) {
-        Customer validCustomer = null;
-        for (Customer eachCustomer : customerList) {
-            if (eachCustomer.getAuthenticationValues().getUserId().equals(customerId) && eachCustomer.getAuthenticationValues().getPassword().equals(customerPassword)) {
-                validCustomer = eachCustomer;
-                break;
-            }
-        }
-        return validCustomer;
     }
 
     public void checkOutItem(int removedItemId, Library library) {

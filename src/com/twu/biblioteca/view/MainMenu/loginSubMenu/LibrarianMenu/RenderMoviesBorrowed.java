@@ -1,27 +1,27 @@
-package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.librarianMenu;
+package com.twu.biblioteca.view.MainMenu.loginSubMenu.LibrarianMenu;
 
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.core.Movie;
 import com.twu.biblioteca.BibliotecaApp;
+import com.twu.biblioteca.view.IMenuAction;
 import com.twu.biblioteca.view.InputOutputDevice;
-import com.twu.biblioteca.view.MenuAction;
 
 import java.util.Map;
 
 /**
  * Created by dianadevasia on 05/03/15.
  */
-public class LibrarianViewImplementationForMovies implements MenuAction {
+public class RenderMoviesBorrowed implements IMenuAction {
 
     Library<Movie> movielibrary;
 
-    public LibrarianViewImplementationForMovies(Library<Movie> movielibrary) {
+    public RenderMoviesBorrowed(Library<Movie> movielibrary) {
         this.movielibrary = movielibrary;
     }
 
     @Override
-    public int doAction(BibliotecaApp bibliotecaApp) {
+    public BibliotecaApp.OutputStatus doAction(BibliotecaApp bibliotecaApp) {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
         if(!movielibrary.hasBorrowedListInformation())
@@ -40,11 +40,11 @@ public class LibrarianViewImplementationForMovies implements MenuAction {
             }
             ioDevice.writeOutput("");
         }
-        return 0;
+        return BibliotecaApp.OutputStatus.CONTINUE;
     }
 
     @Override
-    public String printMenu()
+    public String getMenuName()
     {
         return "Librarian View Implementation For Movies";
     }

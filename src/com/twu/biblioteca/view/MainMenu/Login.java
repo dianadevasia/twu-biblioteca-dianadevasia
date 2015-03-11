@@ -1,51 +1,30 @@
-package com.twu.biblioteca.ActionImplementations.mainMenu;
+package com.twu.biblioteca.view.MainMenu;
 
-import com.twu.biblioteca.core.Customer;
-import com.twu.biblioteca.core.Librarian;
-import com.twu.biblioteca.core.User;
-import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 import com.twu.biblioteca.BibliotecaApp;
+import com.twu.biblioteca.core.User;
+import com.twu.biblioteca.view.IMenuAction;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.Menu;
-import com.twu.biblioteca.view.MenuAction;
 
 import java.io.IOException;
 
 /**
  * Created by dianadevasia on 06/03/15.
  */
-public class LoginImpl implements MenuAction {
+public class Login implements IMenuAction {
 
     static User user;
 
     public static void setUser(User user) {
-        LoginImpl.user = user;
+        Login.user = user;
     }
 
     public static User getUser() {
-        return LoginImpl.user;
+        return Login.user;
     }
 
     private void executeMenu(BibliotecaApp bibliotecaApp,Menu menu) throws IOException {
-        int outcomeOfMenuActionPerformed=0;
-        do {
-            InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
-            menu.showMenu(bibliotecaApp);
-
-            int optionChosenForMenuSelection = ioDevice.readInt("Enter valid customer sub-menu option.");
-            optionChosenForMenuSelection--;
-
-            try
-            {
-                outcomeOfMenuActionPerformed=menu.performActions(optionChosenForMenuSelection, bibliotecaApp);
-            }
-            catch (InvalidMenuOptionChoosen e)
-            {
-                ioDevice.writeOutput("You have entered a wrong input.");
-                ioDevice.writeOutput("Select a valid option from the menu list to go forward!");
-            }
-
-        } while (outcomeOfMenuActionPerformed != BibliotecaApp.QUITCODE);
+        bibliotecaApp.menuProcessing(menu);
     }
 
 
@@ -55,17 +34,12 @@ public class LoginImpl implements MenuAction {
         String userId = (ioDevice.readInput());
         ioDevice.writeOutput("Enter your password");
         String userPassword = ioDevice.readInput();
-        Boolean isLibrarianLoggedIn = Librarian.validateLibrarian(userId, userPassword);
-        if (isLibrarianLoggedIn)
-            return bibliotecaApp.librarian;
-        else {
-            Customer customer = Customer.validateCustomer(userId, userPassword,bibliotecaApp.customerList);
-            return customer;
-        }
+        User loggedinUser = User.validateUser(userId, userPassword,bibliotecaApp.librarianList,bibliotecaApp.customerList);
+        return loggedinUser;
     }
 
     @Override
-    public int doAction(BibliotecaApp bibliotecaApp) throws IOException {
+    public BibliotecaApp.OutputStatus doAction(BibliotecaApp bibliotecaApp) throws IOException {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
         String reply = null;
         do {
@@ -89,7 +63,7 @@ public class LoginImpl implements MenuAction {
                     reply = "n";
                     ioDevice.writeOutput("Logged In successfully!!!");
                     setUser(user);
-                    executeMenu(bibliotecaApp, this.user.roleAssociatedMenuList);
+                    executeMenu(bibliotecaApp,this.user.roleAssociatedMenuList);
                 }
             }
             catch (IOException e)
@@ -97,11 +71,11 @@ public class LoginImpl implements MenuAction {
                 System.out.println(e.getMessage());
             }
         } while (reply.equalsIgnoreCase("y"));
-        return 0;
+        return BibliotecaApp.OutputStatus.CONTINUE;
     }
 
     @Override
-    public String printMenu() {
+    public String getMenuName() {
         return "Login";
     }
 }

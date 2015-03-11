@@ -1,24 +1,24 @@
-package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu;
+package com.twu.biblioteca.view.MainMenu.loginSubMenu.customerMenu;
 
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
-import com.twu.biblioteca.view.MenuAction;
+import com.twu.biblioteca.view.IMenuAction;
 
 /**
  * Created by dianadevasia on 27/02/15.
  */
-public class PrintBookNamesMenuActionImpl implements MenuAction<Book> {
+public class RenderBooksAvailable implements IMenuAction<Book> {
 
     Library<Book> bookLibrary;
 
-    public PrintBookNamesMenuActionImpl(Library<Book> bookLibrary) {
+    public RenderBooksAvailable(Library<Book> bookLibrary) {
         this.bookLibrary = bookLibrary;
     }
 
     @Override
-    public int doAction(BibliotecaApp bibliotecaApp) {
+    public BibliotecaApp.OutputStatus doAction(BibliotecaApp bibliotecaApp) {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
         if (!bookLibrary.hasLstOfItemsPresentInLibrary())
@@ -35,10 +35,10 @@ public class PrintBookNamesMenuActionImpl implements MenuAction<Book> {
             }
             ioDevice.writeOutput("");
         }
-        return 0;
+        return BibliotecaApp.OutputStatus.CONTINUE;
     }
 
-    public String printMenu() {
+    public String getMenuName() {
         return "Print Books Available.";
     }
 }

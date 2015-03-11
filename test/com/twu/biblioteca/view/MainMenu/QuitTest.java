@@ -1,7 +1,8 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.view.MainMenu;
 
-import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
-import com.twu.biblioteca.view.MenuAction;
+import com.twu.biblioteca.BibliotecaApp;
+import com.twu.biblioteca.view.MockInputOutputDevice;
+import com.twu.biblioteca.view.IMenuAction;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by dianadevasia on 06/03/15.
  */
-public class QuitMenuImplTest {
+public class QuitTest {
     @Test
     public void testValidatePerformActionForQuitApp() throws IOException
     {
@@ -24,15 +25,15 @@ public class QuitMenuImplTest {
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
         int optionChosen=0;
 
-        MenuAction quitmenu=new QuitMenuActionImpl();
-        List<MenuAction> menuActionList=new ArrayList<MenuAction>();
-        menuActionList.add(quitmenu);
-        bibliotecaApp.setMenu(menuActionList);
+        IMenuAction quitmenu=new Quit();
+        List<IMenuAction> IMenuActionList =new ArrayList<IMenuAction>();
+        IMenuActionList.add(quitmenu);
+        bibliotecaApp.setMenu(IMenuActionList);
 
         String expected = "Exiting!!! ";
-        int output = bibliotecaApp.getMenu().performActions(optionChosen, bibliotecaApp);
+        BibliotecaApp.OutputStatus output = bibliotecaApp.getMenu().performActions(optionChosen, bibliotecaApp);
 
-        int expectedOutput = 1;
+        BibliotecaApp.OutputStatus expectedOutput = BibliotecaApp.OutputStatus.QUIT;
         assertEquals(output, expectedOutput);
         assertThat(ioDevice.getActualWrittenOutput(), is(expected));
     }

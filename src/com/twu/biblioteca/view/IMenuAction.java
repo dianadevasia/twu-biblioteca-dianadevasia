@@ -8,10 +8,10 @@ import java.io.IOException;
 /**
  * Created by dianadevasia on 27/02/15.
  */
-public interface MenuAction<T extends Item> {
+public interface IMenuAction<T extends Item> {
 
 //    public void doAction(Library<T> library, Customer customer, InputOutputDevice ioDevice);
-    public int doAction(BibliotecaApp bibliotecaApp) throws IOException;
-    public String printMenu();
+    public BibliotecaApp.OutputStatus doAction(BibliotecaApp bibliotecaApp) throws IOException;
+    public String getMenuName();
 
 }

@@ -1,8 +1,8 @@
 package com.twu.biblioteca.core;
 
-import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
-import com.twu.biblioteca.ActionImplementations.mainMenu.QuitMenuActionImpl;
-import com.twu.biblioteca.view.MenuAction;
+import com.twu.biblioteca.view.MainMenu.Login;
+import com.twu.biblioteca.view.MainMenu.Quit;
+import com.twu.biblioteca.view.IMenuAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
  */
 public class MenuItemGenerator
 {
-    public static List<MenuAction> createMenu(Library<Book> bookLibrary,Library<Movie> movieLibrary)
+    public static List<IMenuAction> createMenu(Library<Book> bookLibrary,Library<Movie> movieLibrary)
     {
-        List<MenuAction> mainMenuItems=new ArrayList<MenuAction>();
-        mainMenuItems.add(new LoginImpl());
-        mainMenuItems.add(new QuitMenuActionImpl());
+        List<IMenuAction> mainMenuItems=new ArrayList<IMenuAction>();
+        mainMenuItems.add(new Login());
+        mainMenuItems.add(new Quit());
         return mainMenuItems;
     }
 }

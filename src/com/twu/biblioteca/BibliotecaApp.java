@@ -2,12 +2,13 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.core.*;
 import com.twu.biblioteca.data.CustomerData;
+import com.twu.biblioteca.data.LibrarianData;
 import com.twu.biblioteca.data.SeedData;
 import com.twu.biblioteca.error.InvalidMenuOptionChoosen;
 import com.twu.biblioteca.view.ConsoleInputOutputDevice;
+import com.twu.biblioteca.view.IMenuAction;
 import com.twu.biblioteca.view.InputOutputDevice;
 import com.twu.biblioteca.view.Menu;
-import com.twu.biblioteca.view.MenuAction;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,15 +21,14 @@ public class BibliotecaApp
     public Library<Book> bookLibrary;
     public Library<Movie> movieLibrary;
     public List<Customer> customerList;
-    public Librarian librarian;
-    public final static int QUITCODE=1;
-
-
-
+    public List<Librarian> librarianList;
+    public enum OutputStatus {
+        CONTINUE,
+        QUIT
+    }
+    public Customer loggedInCustomer = null;
     private InputOutputDevice ioDevice;
-    public Menu menu;
-
-    private Customer loggedInCustomer=null;
+    private Menu menu;
 
     public BibliotecaApp(InputOutputDevice ioDevice)
     {
@@ -36,7 +36,7 @@ public class BibliotecaApp
         bookLibrary = new Library<Book>(seedDataInstance.allBooks());
         movieLibrary = new Library<Movie>(seedDataInstance.allMovies());
         customerList = new ArrayList<Customer>(new CustomerData(bookLibrary,movieLibrary).allCustomers());
-        librarian=new Librarian("admin","admin",bookLibrary,movieLibrary);
+        librarianList = new ArrayList<Librarian>(new LibrarianData(bookLibrary,movieLibrary).allLibrarians());
         menu=new Menu(MenuItemGenerator.createMenu(bookLibrary, movieLibrary));
         this.ioDevice = ioDevice;
     }
@@ -58,17 +58,17 @@ public class BibliotecaApp
         InputOutputDevice consoleIODevice = new ConsoleInputOutputDevice();
         BibliotecaApp bibliotecaApp = new BibliotecaApp(consoleIODevice);
 
-        bibliotecaApp.welcomeMessage();
+        bibliotecaApp.showWelcomeMessage();
 
-        bibliotecaApp.menuProcessing();
+        bibliotecaApp.menuProcessing(bibliotecaApp.getMenu());
     }
 
-    public void setLoggedInCustomer(Customer loggedInCustomer) {
-        this.loggedInCustomer = loggedInCustomer;
-    }
-
-    public void setMenu(List<MenuAction> menu) {
+    public void setMenu(List<IMenuAction> menu) {
         this.menu = new Menu(menu);
+    }
+
+    public void setLoggedInCustomer(Customer customer){
+        loggedInCustomer = customer;
     }
 
     private int readInteger() throws IOException
@@ -76,13 +76,13 @@ public class BibliotecaApp
         return ioDevice.readInt("Please enter a numeric value for menu id.");
     }
 
-    public void welcomeMessage() {
+    public void showWelcomeMessage() {
         ioDevice.writeOutput("Welcome to The Bangalore Public Library");
     }
 
-    public void menuProcessing() throws IOException
+    public void menuProcessing(Menu menu) throws IOException
     {
-        int outcomeOfMenuActionPerformed = 0;
+        OutputStatus outcomeOfMenuActionPerformed = null;
         int optionChosenForMenuSelection;
         do {
             menu.showMenu(this);
@@ -98,7 +98,7 @@ public class BibliotecaApp
                 ioDevice.writeOutput("Select a valid option from the menu list to go forward!");
             }
 
-        } while (outcomeOfMenuActionPerformed != BibliotecaApp.QUITCODE);
+        } while (outcomeOfMenuActionPerformed != OutputStatus.QUIT);
 
     }
 

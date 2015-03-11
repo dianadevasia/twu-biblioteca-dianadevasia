@@ -1,7 +1,5 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.view;
 
-import com.twu.biblioteca.view.ConsoleInputOutputDevice;
-import com.twu.biblioteca.view.InputOutputDevice;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -9,7 +7,8 @@ import org.mockito.stubbing.Answer;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.spy;
 
 public class ConsoleInputOutputDeviceTest {
 

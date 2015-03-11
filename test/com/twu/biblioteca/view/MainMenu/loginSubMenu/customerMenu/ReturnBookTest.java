@@ -1,8 +1,8 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.view.MainMenu.loginSubMenu.customerMenu;
 
-import com.twu.biblioteca.ActionImplementations.mainMenu.LoginImpl;
-import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu.CheckoutBookImpl;
-import com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu.ReturnBookImpl;
+import com.twu.biblioteca.BibliotecaApp;
+import com.twu.biblioteca.view.MockInputOutputDevice;
+import com.twu.biblioteca.view.MainMenu.Login;
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;
 import com.twu.biblioteca.core.Library;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class ReturnBookMenuActionImplTest {
+public class ReturnBookTest {
 
     @Test
     public void testReturnValidBook() throws IOException
@@ -31,10 +31,10 @@ public class ReturnBookMenuActionImplTest {
         MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
         Customer customer = new Customer("111-1111","aaaa",bookLibrary,null);
-        LoginImpl.setUser((Customer) customer);
-        CheckoutBookImpl checkoutBook = new CheckoutBookImpl(bookLibrary);
+        Login.setUser((Customer) customer);
+        CheckoutBook checkoutBook = new CheckoutBook(bookLibrary);
         checkoutBook.doAction(bibliotecaApp);
-        ReturnBookImpl returnBook = new ReturnBookImpl(bookLibrary);
+        ReturnBook returnBook = new ReturnBook(bookLibrary);
 
         returnBook.doAction(bibliotecaApp);
         String expected="Thank you for returning.";
@@ -54,10 +54,10 @@ public class ReturnBookMenuActionImplTest {
         MockInputOutputDevice ioDevice = new MockInputOutputDevice(inputValuesToGiveToTest);
         BibliotecaApp bibliotecaApp = new BibliotecaApp(ioDevice);
         Customer customer = new Customer("111-1111","aaaa",bookLibrary,null);
-        LoginImpl.setUser((Customer)customer);
-        CheckoutBookImpl checkoutBook = new CheckoutBookImpl(bookLibrary);
+        Login.setUser((Customer) customer);
+        CheckoutBook checkoutBook = new CheckoutBook(bookLibrary);
         checkoutBook.doAction(bibliotecaApp);
-        ReturnBookImpl returnBook = new ReturnBookImpl(bookLibrary);
+        ReturnBook returnBook = new ReturnBook(bookLibrary);
 
         returnBook.doAction(bibliotecaApp);
         String expected="That is not a valid book to return.";

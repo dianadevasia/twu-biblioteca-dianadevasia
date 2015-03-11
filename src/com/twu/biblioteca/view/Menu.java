@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public class Menu {
 
-    Map<Integer,MenuAction> menuItems = new HashMap<Integer,MenuAction>();
+    Map<Integer,IMenuAction> menuItems = new HashMap<Integer,IMenuAction>();
 
-    public Menu(List<MenuAction> menuItems)
+    public Menu(List<IMenuAction> menuItems)
     {
         for(int i=0;i<menuItems.size();i++)
             this.menuItems.put(i, menuItems.get(i));
@@ -23,14 +23,14 @@ public class Menu {
 
     public void showMenu(BibliotecaApp bibliotecaApp){
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
-        for(Map.Entry<Integer,MenuAction> each : menuItems.entrySet())
+        for(Map.Entry<Integer,IMenuAction> each : menuItems.entrySet())
         {
-            ioDevice.writeOutput("%d\t%s",each.getKey()+1,each.getValue().printMenu());
+            ioDevice.writeOutput("%d\t%s",each.getKey()+1,each.getValue().getMenuName());
 
         }
     }
 
-    public int performActions(int optionChosen,BibliotecaApp bibliotecaApp)throws IOException,InvalidMenuOptionChoosen
+    public BibliotecaApp.OutputStatus performActions(int optionChosen,BibliotecaApp bibliotecaApp)throws IOException,InvalidMenuOptionChoosen
     {
         if(menuItems.containsKey(optionChosen))
         {

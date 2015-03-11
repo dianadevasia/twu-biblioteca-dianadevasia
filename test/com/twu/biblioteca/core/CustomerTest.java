@@ -1,4 +1,4 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.core;
 
 import com.twu.biblioteca.core.Book;
 import com.twu.biblioteca.core.Customer;

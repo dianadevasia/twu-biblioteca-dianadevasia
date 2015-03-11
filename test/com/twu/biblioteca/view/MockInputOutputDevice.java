@@ -1,6 +1,4 @@
-package com.twu.biblioteca;
-
-import com.twu.biblioteca.view.InputOutputDevice;
+package com.twu.biblioteca.view;
 
 import java.io.IOException;
 import java.util.ArrayList;

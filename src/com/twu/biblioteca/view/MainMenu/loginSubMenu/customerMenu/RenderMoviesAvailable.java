@@ -1,23 +1,23 @@
-package com.twu.biblioteca.ActionImplementations.mainMenu.loginSubMenu.customerMenu;
+package com.twu.biblioteca.view.MainMenu.loginSubMenu.customerMenu;
 
 import com.twu.biblioteca.core.Library;
 import com.twu.biblioteca.core.Movie;
 import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.view.InputOutputDevice;
-import com.twu.biblioteca.view.MenuAction;
+import com.twu.biblioteca.view.IMenuAction;
 
 /**
  * Created by dianadevasia on 02/03/15.
  */
-public class PrintMoviesAvailableImpl implements MenuAction<Movie> {
+public class RenderMoviesAvailable implements IMenuAction<Movie> {
 
     Library<Movie> movieLibrary;
 
-    public PrintMoviesAvailableImpl(Library<Movie> movieLibrary){
+    public RenderMoviesAvailable(Library<Movie> movieLibrary){
         this.movieLibrary=movieLibrary;
     }
     @Override
-    public int doAction(BibliotecaApp bibliotecaApp)
+    public BibliotecaApp.OutputStatus doAction(BibliotecaApp bibliotecaApp)
     {
         InputOutputDevice ioDevice = bibliotecaApp.getIoDevice();
 
@@ -37,9 +37,9 @@ public class PrintMoviesAvailableImpl implements MenuAction<Movie> {
                 ioDevice.writeOutput("|%-10d|%-30s|%-30s|%-20d|%d\n", each.getMovieId(), each.getName(), each.getDirector(), each.getMovieYear(), each.getMovieRating());
             ioDevice.writeOutput("");
         }
-        return 0;
+        return BibliotecaApp.OutputStatus.CONTINUE;
     }
-    public String printMenu(){
+    public String getMenuName(){
         return "Print Movies Available.";
     }
 }
